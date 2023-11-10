@@ -76,28 +76,6 @@ Website: [Osairo world](https://land.osairo.xyz)
 
 ## 🚀 Getting Started
 
-### Run locally
-
-Require:
-
-- [pnpm](https://pnpm.io/)
-
-Install dependencies
-
-```bash
-pnpm install
-```
-
-config default .env
-
-```bash
-cp .env.example .env
-```
-
-Run contract test cases
-
-```bash
-pnpm run test
-```
+### TODO
 
 <h2>Join Osairo and let's create wonders together!</h2>
