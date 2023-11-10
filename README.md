@@ -64,6 +64,10 @@ Twitter: [Osairo island](https://twitter.com/osairoisland)
 
 Website: [Osairo world](https://land.osairo.xyz)
 
+### How to distribute
+
+- [Osairo Expedition Guildhall](https://www.notion.so/wealth-dao/Osairo-Expedition-Guildhall-1301899377de41189d0bba2e1a391fdb?pvs=4)
+
 ## Supporters
 
 <picture>
