@@ -116,6 +116,49 @@ importers:
         specifier: 2.0.0-next.14
         version: 2.0.0-next.14
 
+  packages/web-client:
+    dependencies:
+      '@latticexyz/common':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(typescript@5.1.6)(zod@3.22.4)
+      '@latticexyz/dev-tools':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(@latticexyz/common@2.0.0-next.14)(@latticexyz/recs@2.0.0-next.14)(@latticexyz/store-sync@2.0.0-next.14)(@latticexyz/store@2.0.0-next.14)(@latticexyz/utils@2.0.0-next.14)(@latticexyz/world@2.0.0-next.14)(typescript@5.1.6)(zod@3.22.4)
+      '@latticexyz/recs':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(typescript@5.1.6)(zod@3.22.4)
+      '@latticexyz/schema-type':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(typescript@5.1.6)(zod@3.22.4)
+      '@latticexyz/services':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(google-protobuf@3.21.2)
+      '@latticexyz/store-sync':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(react@18.2.0)(typescript@5.1.6)
+      '@latticexyz/utils':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14
+      '@latticexyz/world':
+        specifier: 2.0.0-next.14
+        version: 2.0.0-next.14(typescript@5.1.6)
+      contracts:
+        specifier: workspace:*
+        version: link:../contracts
+      rxjs:
+        specifier: 7.5.5
+        version: 7.5.5
+      viem:
+        specifier: 1.14.0
+        version: 1.14.0(typescript@5.1.6)(zod@3.22.4)
+    devDependencies:
+      vite:
+        specifier: ^4.2.1
+        version: 4.2.1
+      wait-port:
+        specifier: ^1.0.4
+        version: 1.0.4
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
