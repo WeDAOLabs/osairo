@@ -218,3 +218,8 @@ artifacts
 contracts/.env
 
 client/website/.env
+
+/packages/contracts/out
+
+broadcast
+deploys
