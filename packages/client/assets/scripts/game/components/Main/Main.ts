@@ -14,6 +14,10 @@ export class Main extends LayoutCom {
   static prefabName(): string {
     return "Main";
   }
+
+  private onExploreClicked() {
+    console.log("begin seek treasure");
+  }
 }
 
 registerLayout(Main);
