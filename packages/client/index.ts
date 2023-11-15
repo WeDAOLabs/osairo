@@ -22,6 +22,7 @@ components.Counter.update$.subscribe((update) => {
   console.log("new counter value:", await increment());
 };
 
+console.log("哈哈", import.meta);
 // https://vitejs.dev/guide/env-and-mode.html
 if (import.meta.env.DEV) {
   const { mount: mountDevTools } = await import("@latticexyz/dev-tools");

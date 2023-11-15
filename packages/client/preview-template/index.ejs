@@ -2,7 +2,7 @@
     <head>
         <link rel="icon" href="./favicon.ico" />
         <meta charset="utf-8" />
-        <title><%=title%></title>
+        <title>Osairo</title>
         <meta
             name="viewport"
             content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"
@@ -20,6 +20,7 @@
     </head>
     <body style="overflow: hidden;">
         <%- include(cocosToolBar, {config: config}) %>
+        <script type="module" src="../index.ts"></script>
         <div id="content" class="content" style="overflow: hidden;">
             <div class="contentWrap">
                 <div id="GameDiv" class="wrapper">
@@ -41,5 +42,7 @@
             </div>
         </div>
         <%- include(cocosTemplate, {}) %>
+         <!-- Polyfills bundle. -->
+        <script src="../polyfills.bundle.js" charset="utf-8"> </script>
     </body>
 </html>
