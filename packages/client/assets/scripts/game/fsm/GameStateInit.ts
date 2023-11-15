@@ -1,5 +1,7 @@
 import { onAddedPromise } from "../../core/layout/LayerHelper";
 import { gameManager } from "../../core/manager/GameManager";
+import { dataModels } from "../../core/model/DataRegister";
+import { Login } from "../components/Login/Login";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 
@@ -28,23 +30,23 @@ export class GameStateGameInit extends GameFsmBase {
   }
 
   async onExit(): Promise<void> {
-    // const startScreen =
-    //   gameManager.canvas.getComponentInChildren("StartScreen");
-    // await onAddedPromise(Main);
-    // if (startScreen && startScreen.node) {
-    //   startScreen.node.destroy();
-    // }
-    // Login.remove();
+    const startScreen =
+      gameManager.canvas.getComponentInChildren("StartScreen");
+    // TODO await onAddedPromise(GameMapScene);
+    if (startScreen && startScreen.node) {
+      startScreen.node.destroy();
+    }
+    Login.remove();
   }
 
   private async _loadDataModels() {
-    // for (let i = 0; i < dataModels.length; i++) {
-    //   const v = dataModels[i];
-    //   v.preload && v.preload();
-    //   if (v && v.loadData) {
-    //     await v.loadData();
-    //   }
-    // }
+    for (let i = 0; i < dataModels.length; i++) {
+      const v = dataModels[i];
+      v.preload && v.preload();
+      if (v && v.loadData) {
+        await v.loadData();
+      }
+    }
   }
 
   private async _loadResources() {

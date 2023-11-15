@@ -1,7 +1,7 @@
 import { _decorator } from "cc";
-import { GameObject } from "../../core/game/GameObject";
-import { eventBus } from "../../core/event/EventBus";
-import { GameEventGameLaunch } from "../../core/game/events/GameEventGameLaunch";
+import { GameObject } from "../../../core/game/GameObject";
+import { eventBus } from "../../../core/event/EventBus";
+import { GameEventGameLaunch } from "../../../core/game/events/GameEventGameLaunch";
 const { menu, ccclass } = _decorator;
 
 @ccclass("StartScreen")
