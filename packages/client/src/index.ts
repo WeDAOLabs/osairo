@@ -11,9 +11,9 @@ const {
 components.Counter.update$.subscribe((update) => {
   const [nextValue, prevValue] = update.value;
   console.log("Counter updated", update, { nextValue, prevValue });
-  document.getElementById("counter")!.innerHTML = String(
-    nextValue?.value ?? "unset"
-  );
+  // document.getElementById("counter")!.innerHTML = String(
+  //   nextValue?.value ?? "unset"
+  // );
 });
 
 // Just for demonstration purposes: we create a global function that can be
@@ -22,19 +22,19 @@ components.Counter.update$.subscribe((update) => {
   console.log("new counter value:", await increment());
 };
 
-console.log("哈哈", import.meta);
 // https://vitejs.dev/guide/env-and-mode.html
-if (import.meta.env.DEV) {
-  const { mount: mountDevTools } = await import("@latticexyz/dev-tools");
-  mountDevTools({
-    config: mudConfig,
-    publicClient: network.publicClient,
-    walletClient: network.walletClient,
-    latestBlock$: network.latestBlock$,
-    storedBlockLogs$: network.storedBlockLogs$,
-    worldAddress: network.worldContract.address,
-    worldAbi: network.worldContract.abi,
-    write$: network.write$,
-    recsWorld: network.world,
-  });
-}
+console.log("this is mud", import.meta);
+// if (import.meta.env.DEV) {
+// const { mount: mountDevTools } = await import("@latticexyz/dev-tools");
+// mountDevTools({
+//   config: mudConfig,
+//   publicClient: network.publicClient,
+//   walletClient: network.walletClient,
+//   latestBlock$: network.latestBlock$,
+//   storedBlockLogs$: network.storedBlockLogs$,
+//   worldAddress: network.worldContract.address,
+//   worldAbi: network.worldContract.abi,
+//   write$: network.write$,
+//   recsWorld: network.world,
+// });
+// }
