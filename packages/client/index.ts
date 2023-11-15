@@ -1,4 +1,4 @@
-import { setup } from "./mud/setup";
+import { setup } from "./assets/mud/setup";
 import mudConfig from "contracts/mud.config";
 
 const {
@@ -11,7 +11,9 @@ const {
 components.Counter.update$.subscribe((update) => {
   const [nextValue, prevValue] = update.value;
   console.log("Counter updated", update, { nextValue, prevValue });
-  document.getElementById("counter")!.innerHTML = String(nextValue?.value ?? "unset");
+  document.getElementById("counter")!.innerHTML = String(
+    nextValue?.value ?? "unset"
+  );
 });
 
 // Just for demonstration purposes: we create a global function that can be
