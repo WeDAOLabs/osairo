@@ -2,10 +2,13 @@ import { onAddedPromise } from "../../core/layout/LayerHelper";
 import { gameManager } from "../../core/manager/GameManager";
 import { dataModels } from "../../core/model/DataRegister";
 import { Login } from "../components/Login/Login";
+import { Main } from "../components/Main/Main";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 
 export class GameStateGameInit extends GameFsmBase {
+  private _timeInterval = 0;
+
   constructor(owner: any) {
     super(SceneState.GAME_INIT, owner);
   }
@@ -14,7 +17,12 @@ export class GameStateGameInit extends GameFsmBase {
     return SceneState.GAME_GAMING;
   }
 
+  private initTimeDelay() {
+    this._timeInterval = gameManager.timer.getLocalTime();
+  }
+
   async onEnter(): Promise<void> {
+    this.initTimeDelay();
     // if (!walletData.hasProvider) {
     //   Toast.showMessage(
     //     `there's no provider has been found, please install metamask first`
@@ -26,13 +34,21 @@ export class GameStateGameInit extends GameFsmBase {
 
     await this._loadResources();
 
-    this.updateComplete();
+    const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
+    if (timeSpan < 1000) {
+      this.scheduleOnce(
+        () => this.updateComplete(),
+        Math.max(200, timeSpan) / 1000
+      );
+    } else {
+      this.updateComplete();
+    }
   }
 
   async onExit(): Promise<void> {
     const startScreen =
       gameManager.canvas.getComponentInChildren("StartScreen");
-    // TODO await onAddedPromise(GameMapScene);
+    await onAddedPromise(Main);
     if (startScreen && startScreen.node) {
       startScreen.node.destroy();
     }
