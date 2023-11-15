@@ -4,13 +4,11 @@
 
   /* Add your custom configuration here. */
   "compilerOptions": {
-    "strict": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
 
     "target": "ESNext",
-    "useDefineForClassFields": true,
     "module": "ESNext",
+    "useDefineForClassFields": true,
     "lib": ["ESNext", "DOM"],
     "strict": true,
     "resolveJsonModule": true,
