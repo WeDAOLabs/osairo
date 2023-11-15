@@ -20,7 +20,7 @@
     </head>
     <body style="overflow: hidden;">
         <%- include(cocosToolBar, {config: config}) %>
-        <script type="module" src="../index.ts"></script>
+        <script type="module" src="./index.ts"></script>
         <div id="content" class="content" style="overflow: hidden;">
             <div class="contentWrap">
                 <div id="GameDiv" class="wrapper">
@@ -43,6 +43,6 @@
         </div>
         <%- include(cocosTemplate, {}) %>
          <!-- Polyfills bundle. -->
-        <script src="../polyfills.bundle.js" charset="utf-8"> </script>
+        <script src="./polyfills.bundle.js" charset="utf-8"> </script>
     </body>
 </html>
