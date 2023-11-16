@@ -1,37 +1,46 @@
 import { setup } from "./mud/setup";
-import mudConfig from "contracts/mud.config";
+class MudEngine {
+  private _env: any = {};
+  private _initialized: boolean = false;
 
-const {
-  components,
-  systemCalls: { increment },
-  network,
-} = await setup();
+  private _network: any = null!;
 
-// Components expose a stream that triggers when the component is updated.
-components.Counter.update$.subscribe((update) => {
-  const [nextValue, prevValue] = update.value;
-  console.log("Counter updated", update, { nextValue, prevValue });
-  document.getElementById("counter")!.innerHTML = String(nextValue?.value ?? "unset");
-});
+  public get network() {
+    return this._network;
+  }
 
-// Just for demonstration purposes: we create a global function that can be
-// called to invoke the Increment system contract via the world. (See IncrementSystem.sol.)
-(window as any).increment = async () => {
-  console.log("new counter value:", await increment());
-};
+  public get isInit(): boolean {
+    return this._initialized;
+  }
 
-// https://vitejs.dev/guide/env-and-mode.html
-if (import.meta.env.DEV) {
-  const { mount: mountDevTools } = await import("@latticexyz/dev-tools");
-  mountDevTools({
-    config: mudConfig,
-    publicClient: network.publicClient,
-    walletClient: network.walletClient,
-    latestBlock$: network.latestBlock$,
-    storedBlockLogs$: network.storedBlockLogs$,
-    worldAddress: network.worldContract.address,
-    worldAbi: network.worldContract.abi,
-    write$: network.write$,
-    recsWorld: network.world,
-  });
+  constructor() {
+    // @ts-ignore
+    this._env = import.meta.env;
+  }
+
+  async init() {
+    const {
+      components,
+      systemCalls: { increment },
+      network,
+    } = await setup();
+
+    this._network = network;
+
+    this._initialized = true;
+
+    components.Counter.update$.subscribe((update) => {
+      const [nextValue, prevValue] = update.value;
+      console.log("Counter updated", update, { nextValue, prevValue });
+      // document.getElementById("counter")!.innerHTML = String(
+      //   nextValue?.value ?? "unset"
+      // );
+    });
+    (window as any).increment = async () => {
+      console.log("new counter value:", await increment());
+    };
+  }
 }
+
+const context = globalThis as any;
+context.mudEngine = new MudEngine();

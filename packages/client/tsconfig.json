@@ -1,18 +1,29 @@
 {
+  /* Base configuration. Do not edit this field. */
+  "extends": "./temp/tsconfig.cocos.json",
+
+  /* Add your custom configuration here. */
   "compilerOptions": {
-    "types": ["vite/client"],
-    "target": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+
+    "target": "ESNEXT",
+    "module": "ESNEXT",
     "useDefineForClassFields": true,
-    "module": "ESNext",
     "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
-    "noEmit": true,
     "skipLibCheck": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "exclude": [
+    "node_modules",
+    "library",
+    "local",
+    "temp",
+    "build",
+    "settings"
+  ],
+  "include": ["src","assets"]
 }

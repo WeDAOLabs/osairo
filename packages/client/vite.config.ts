@@ -10,6 +10,11 @@ export default defineConfig({
   build: {
     target: "es2022",
     minify: true,
-    sourcemap: true,
+    sourcemap: false,
+    rollupOptions: {
+      input: "src/index.ts",
+    },
+    outDir: "assets/scripts/mud/",
+    assetsDir: ".",
   },
 });
