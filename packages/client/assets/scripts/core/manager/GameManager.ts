@@ -1,12 +1,12 @@
-import { Camera, Canvas, Component, Node, director, error } from 'cc';
-import { IEnginePlugin } from '../engine/IEnginePlugin';
-import { eventBus } from '../event/EventBus';
-import { GameEventGameOver } from '../game/events/GameEventGameOver';
-import { GameEventGameRestart } from '../game/events/GameEventGameRestart';
-import { GameEventGameStart } from '../game/events/GameEventGameStart';
-import { LanguageManager } from '../i18n/Language';
-import { LayerManager } from '../layout/LayerManager';
-import { TimerManager } from './TimerManager';
+import { Camera, Canvas, Component, Node, director, error } from "cc";
+import { IEnginePlugin } from "../engine/IEnginePlugin";
+import { eventBus } from "../event/EventBus";
+import { GameEventGameOver } from "../game/events/GameEventGameOver";
+import { GameEventGameRestart } from "../game/events/GameEventGameRestart";
+import { GameEventGameStart } from "../game/events/GameEventGameStart";
+import { LanguageManager } from "../i18n/Language";
+import { LayerManager } from "../layout/LayerManager";
+import { TimerManager } from "./TimerManager";
 
 export class GameManager extends Component implements IEnginePlugin {
   private _rootNode: Node | null = null;
@@ -58,7 +58,7 @@ export class GameManager extends Component implements IEnginePlugin {
 
   public setRootNode(node: Node) {
     if (!node) {
-      error('GameManager.setRootNode node is null');
+      error("GameManager.setRootNode node is null");
       return;
     }
     this._rootNode = node;

@@ -11,7 +11,7 @@
   "scripts": {
     "build": "vite build",
     "vite-version": "vite --version",
-    "dev": "wait-port localhost:8545 && vite",
+    "dev": "vite build --mode development",
     "preview": "vite preview",
     "test": "tsc --noEmit"
   },

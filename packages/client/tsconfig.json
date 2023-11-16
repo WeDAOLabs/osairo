@@ -5,6 +5,7 @@
   /* Add your custom configuration here. */
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
 
     "target": "ESNext",
     "module": "ESNext",
@@ -24,5 +25,5 @@
     "build",
     "settings"
   ],
-  "include": ["src"]
+  "include": ["src","assets"]
 }
