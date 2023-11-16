@@ -13,7 +13,8 @@
     "vite-version": "vite --version",
     "dev": "vite build --mode development",
     "preview": "vite preview",
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit",
+    "compile": "tsc"
   },
   "dependencies": {
     "@latticexyz/common": "2.0.0-next.14",
@@ -29,6 +30,7 @@
     "viem": "1.14.0"
   },
   "devDependencies": {
+    "typescript": "5.1.6",
     "vite": "^4.2.1",
     "wait-port": "^1.0.4"
   }

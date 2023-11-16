@@ -1,8 +1,17 @@
 import { setup } from "./mud/setup";
-import mudConfig from "contracts/mud.config";
-
 class MudEngine {
   private _env: any = {};
+  private _initialized: boolean = false;
+
+  private _network: any = null!;
+
+  public get network() {
+    return this._network;
+  }
+
+  public get isInit(): boolean {
+    return this._initialized;
+  }
 
   constructor() {
     // @ts-ignore
@@ -15,6 +24,11 @@ class MudEngine {
       systemCalls: { increment },
       network,
     } = await setup();
+
+    this._network = network;
+
+    this._initialized = true;
+
     components.Counter.update$.subscribe((update) => {
       const [nextValue, prevValue] = update.value;
       console.log("Counter updated", update, { nextValue, prevValue });
@@ -30,18 +44,3 @@ class MudEngine {
 
 const context = globalThis as any;
 context.mudEngine = new MudEngine();
-
-// if (import.meta.env.DEV) {
-//   const { mount: mountDevTools } = await import("@latticexyz/dev-tools");
-//   mountDevTools({
-//     config: mudConfig,
-//     publicClient: network.publicClient,
-//     walletClient: network.walletClient,
-//     latestBlock$: network.latestBlock$,
-//     storedBlockLogs$: network.storedBlockLogs$,
-//     worldAddress: network.worldContract.address,
-//     worldAbi: network.worldContract.abi,
-//     write$: network.write$,
-//     recsWorld: network.world,
-//   });
-// }

@@ -7,8 +7,8 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
 
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ESNEXT",
+    "module": "ESNEXT",
     "useDefineForClassFields": true,
     "lib": ["ESNext", "DOM"],
     "strict": true,
