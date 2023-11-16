@@ -3,9 +3,7 @@ import mudConfig from "contracts/mud.config";
 async function openDebugConsole() {
   // @ts-ignore
   const dev = import.meta.env.VITE_DEV;
-  console.log("环境变量", dev);
   if (dev) {
-    console.log("配置控制台");
     const { mount: mountDevTools } = await import("@latticexyz/dev-tools");
     const context = window as any;
     const mud = context.mudEngine as any;

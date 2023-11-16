@@ -5313,9 +5313,7 @@ const Ps = Zs({
   tables: { Counter: { keySchema: {}, valueSchema: "uint32" } },
 });
 async function Ms() {
-  console.log("环境变量", "true");
   {
-    console.log("配置控制台");
     const { mount: t } = await Xt(() => import("./mud-dev-tool.js"), []),
       s = window.mudEngine.network;
     t({
