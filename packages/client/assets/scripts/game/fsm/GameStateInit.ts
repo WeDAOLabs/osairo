@@ -35,7 +35,7 @@ export class GameStateGameInit extends GameFsmBase {
 
     await this._loadResources();
 
-    await mudEngine.mud.init();
+    await mudEngine.init();
 
     const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
     if (timeSpan < 1000) {
