@@ -3,7 +3,7 @@ import { gameManager } from "../../core/manager/GameManager";
 import { dataModels } from "../../core/model/DataRegister";
 import { Login } from "../components/Login/Login";
 import { Main } from "../components/Main/Main";
-import { MudEngine } from "../mud/MudEngine";
+import { mudEngine } from "../mud/MudEngine";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 
@@ -35,7 +35,7 @@ export class GameStateGameInit extends GameFsmBase {
 
     await this._loadResources();
 
-    await MudEngine.getInstance().init();
+    await mudEngine.mud.init();
 
     const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
     if (timeSpan < 1000) {
@@ -52,8 +52,8 @@ export class GameStateGameInit extends GameFsmBase {
     if (this._mudEngineLaunched) {
       return;
     }
-    const mud = MudEngine.getInstance();
-    if (mud) {
+
+    if (mudEngine.mud) {
       this._mudEngineLaunched = true;
       this.initGame();
     }
