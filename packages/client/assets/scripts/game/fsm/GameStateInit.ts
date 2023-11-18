@@ -9,6 +9,7 @@ import { SceneState } from "./SceneState";
 
 export class GameStateGameInit extends GameFsmBase {
   private _timeInterval = 0;
+  private _mudEngineLaunched: boolean = false;
 
   constructor(owner: any) {
     super(SceneState.GAME_INIT, owner);
@@ -22,8 +23,7 @@ export class GameStateGameInit extends GameFsmBase {
     this._timeInterval = gameManager.timer.getLocalTime();
   }
 
-  async onEnter(): Promise<void> {
-    this.initTimeDelay();
+  private async initGame() {
     // if (!walletData.hasProvider) {
     //   Toast.showMessage(
     //     `there's no provider has been found, please install metamask first`
@@ -46,6 +46,22 @@ export class GameStateGameInit extends GameFsmBase {
     } else {
       this.updateComplete();
     }
+  }
+
+  tick() {
+    if (this._mudEngineLaunched) {
+      return;
+    }
+    const mud = MudEngine.getInstance();
+    if (mud) {
+      this._mudEngineLaunched = true;
+      this.initGame();
+    }
+  }
+
+  async onEnter(): Promise<void> {
+    this.initTimeDelay();
+    this._mudEngineLaunched = false;
   }
 
   async onExit(): Promise<void> {
