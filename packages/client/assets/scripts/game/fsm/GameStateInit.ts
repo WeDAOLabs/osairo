@@ -3,12 +3,13 @@ import { gameManager } from "../../core/manager/GameManager";
 import { dataModels } from "../../core/model/DataRegister";
 import { Login } from "../components/Login/Login";
 import { Main } from "../components/Main/Main";
-import { MudEngine } from "../mud/MudEngine";
+import { mudEngine } from "../mud/MudEngine";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 
 export class GameStateGameInit extends GameFsmBase {
   private _timeInterval = 0;
+  private _mudEngineLaunched: boolean = false;
 
   constructor(owner: any) {
     super(SceneState.GAME_INIT, owner);
@@ -22,8 +23,7 @@ export class GameStateGameInit extends GameFsmBase {
     this._timeInterval = gameManager.timer.getLocalTime();
   }
 
-  async onEnter(): Promise<void> {
-    this.initTimeDelay();
+  private async initGame() {
     // if (!walletData.hasProvider) {
     //   Toast.showMessage(
     //     `there's no provider has been found, please install metamask first`
@@ -35,7 +35,7 @@ export class GameStateGameInit extends GameFsmBase {
 
     await this._loadResources();
 
-    await MudEngine.getInstance().init();
+    await mudEngine.init();
 
     const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
     if (timeSpan < 1000) {
@@ -46,6 +46,22 @@ export class GameStateGameInit extends GameFsmBase {
     } else {
       this.updateComplete();
     }
+  }
+
+  tick() {
+    if (this._mudEngineLaunched) {
+      return;
+    }
+
+    if (mudEngine.mud) {
+      this._mudEngineLaunched = true;
+      this.initGame();
+    }
+  }
+
+  async onEnter(): Promise<void> {
+    this.initTimeDelay();
+    this._mudEngineLaunched = false;
   }
 
   async onExit(): Promise<void> {

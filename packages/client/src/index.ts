@@ -4,6 +4,12 @@ class MudEngine {
   private _initialized: boolean = false;
 
   private _network: any = null!;
+  private _systemCalls: any = {};
+  private _components: any = {};
+
+  public get version(): string {
+    return "0.0.1";
+  }
 
   public get network() {
     return this._network;
@@ -11,6 +17,14 @@ class MudEngine {
 
   public get isInit(): boolean {
     return this._initialized;
+  }
+
+  public get systemCalls(): any {
+    return this._systemCalls;
+  }
+
+  public get components(): any {
+    return this._components;
   }
 
   constructor() {
@@ -26,19 +40,10 @@ class MudEngine {
     } = await setup();
 
     this._network = network;
+    this._components = components;
+    this._systemCalls = { increment };
 
     this._initialized = true;
-
-    components.Counter.update$.subscribe((update) => {
-      const [nextValue, prevValue] = update.value;
-      console.log("Counter updated", update, { nextValue, prevValue });
-      // document.getElementById("counter")!.innerHTML = String(
-      //   nextValue?.value ?? "unset"
-      // );
-    });
-    (window as any).increment = async () => {
-      console.log("new counter value:", await increment());
-    };
   }
 }
 

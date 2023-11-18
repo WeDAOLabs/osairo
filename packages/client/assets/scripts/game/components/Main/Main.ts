@@ -1,7 +1,10 @@
-import { _decorator } from "cc";
+import { Label, _decorator } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
-const { menu, ccclass } = _decorator;
+import { mudEngine } from "../../mud/MudEngine";
+import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
+import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
+const { menu, ccclass, property } = _decorator;
 
 /*
  * @author: enixlee
@@ -15,8 +18,22 @@ export class Main extends LayoutCom {
     return "Main";
   }
 
-  private onExploreClicked() {
+  @property(Label)
+  private goldCountLabel: Label = null!;
+
+  private async onExploreClicked() {
+    await mudEngine.systemCalls.increment();
     console.log("begin seek treasure");
+  }
+
+  @OnEvent(GameEventMudComponentUpdated.event)
+  private onGoldCountIncreased(name: string, update: any) {
+    if (name !== "Counter") {
+      return;
+    }
+
+    const [nextValue, prevValue] = update.value;
+    this.goldCountLabel.string = `gold count: ${nextValue?.value ?? 0}`;
   }
 }
 
