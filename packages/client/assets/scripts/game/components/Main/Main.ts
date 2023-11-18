@@ -28,10 +28,12 @@ export class Main extends LayoutCom {
 
   @OnEvent(GameEventMudComponentUpdated.event)
   private onGoldCountIncreased(name: string, update: any) {
-    console.log("component updated", name, update);
     if (name !== "Counter") {
       return;
     }
+
+    const [nextValue, prevValue] = update.value;
+    this.goldCountLabel.string = `gold count: ${nextValue?.value ?? 0}`;
   }
 }
 

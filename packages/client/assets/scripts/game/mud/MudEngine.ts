@@ -36,10 +36,9 @@ class MudEngine extends Singleton {
   }
 
   private registerComponent(name: string, component: any) {
-    if (!component || !component?.$update) {
+    if (!component || !component?.update$) {
       return;
     }
-
     component.update$.subscribe((update: any) =>
       eventBus.emit(GameEventMudComponentUpdated.event, name, update)
     );
