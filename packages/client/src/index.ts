@@ -7,6 +7,10 @@ class MudEngine {
   private _systemCalls: any = {};
   private _components: any = {};
 
+  public get version(): string {
+    return "0.0.1";
+  }
+
   public get network() {
     return this._network;
   }

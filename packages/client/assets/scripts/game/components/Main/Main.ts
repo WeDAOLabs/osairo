@@ -2,6 +2,8 @@ import { Label, _decorator } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { mudEngine } from "../../mud/MudEngine";
+import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
+import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -24,7 +26,13 @@ export class Main extends LayoutCom {
     console.log("begin seek treasure");
   }
 
-  private onGoldCountIncreased(nextValue: any, preValue: any) {}
+  @OnEvent(GameEventMudComponentUpdated.event)
+  private onGoldCountIncreased(name: string, update: any) {
+    console.log("component updated", name, update);
+    if (name !== "Counter") {
+      return;
+    }
+  }
 }
 
 registerLayout(Main);

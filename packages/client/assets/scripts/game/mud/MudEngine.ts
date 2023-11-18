@@ -17,7 +17,8 @@ class MudEngine extends Singleton {
 
     // register event
     this.registerComponents();
-    console.log("mud components", this.mud.components);
+
+    console.log(`mud init, version: ${this.mud.version}`);
   }
 
   private registerComponents() {
