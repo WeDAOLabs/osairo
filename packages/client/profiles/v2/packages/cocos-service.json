@@ -13,10 +13,34 @@
             "params": {}
           }
         ]
+      },
+      "web-mobile": {
+        "configID": "0f0990",
+        "services": [
+          {
+            "service_id": "278",
+            "service_component_name": "service-sdkhub",
+            "builder": "/Users/enixlee/.CocosCreator/.service/sdkhub/builder/builder.js",
+            "enable": false,
+            "params": {}
+          }
+        ]
       }
     },
     "taskOptionsMap": {
       "1700046126339": {
+        "configID": "0f0990",
+        "services": [
+          {
+            "service_id": "278",
+            "service_component_name": "service-sdkhub",
+            "builder": "/Users/enixlee/.CocosCreator/.service/sdkhub/builder/builder.js",
+            "enable": false,
+            "params": {}
+          }
+        ]
+      },
+      "1700482963675": {
         "configID": "0f0990",
         "services": [
           {
@@ -41,6 +65,7 @@
         "enable": false,
         "params": {}
       }
-    ]
+    ],
+    "__version__": "3.0.7"
   }
 }
