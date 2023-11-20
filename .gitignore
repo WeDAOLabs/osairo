@@ -223,3 +223,4 @@ broadcast
 deploys
 
 /packages/client/assets/scripts/mud
+/packages/client/plugins/mud
