@@ -12,6 +12,7 @@
     "build": "vite build",
     "vite-version": "vite --version",
     "dev": "vite build --mode development",
+    "deploy:testnet": "vite build --mode testnet",
     "preview": "vite preview",
     "test": "tsc --noEmit",
     "compile": "tsc"

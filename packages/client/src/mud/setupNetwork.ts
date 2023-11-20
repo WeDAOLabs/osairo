@@ -27,6 +27,9 @@ import mudConfig from "contracts/mud.config";
 export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;
 
 export async function setupNetwork() {
+  // @ts-ignore
+  const debug = import.meta.env.VITE_DEV;
+
   const networkConfig = await getNetworkConfig();
 
   /*
@@ -121,5 +124,6 @@ export async function setupNetwork() {
     waitForTransaction,
     worldContract,
     write$: write$.asObservable().pipe(share()),
+    worldAddress: debug ? networkConfig.worldAddress : 'unknown'
   };
 }

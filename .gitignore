@@ -41,13 +41,11 @@ artifacts
 # Cocos Creator Projects
 #/////////////////////////////////////////////////////////////////////////////
 product/
-build/
 library/
 temp/
 local/
 
 jsb-binary/
-build/web-desktop/
 build/web-mobile/
 runtime/
 jsb/
@@ -223,3 +221,5 @@ client/website/.env
 
 broadcast
 deploys
+
+/packages/client/assets/scripts/mud
