@@ -11,6 +11,10 @@ class MudEngine {
     return "0.0.1";
   }
 
+  public get env() {
+    return this._env;
+  }
+
   public get network() {
     return this._network;
   }
