@@ -13,6 +13,9 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       input: "src/index.ts",
+      output: {
+        entryFileNames: "[name].js",
+      },
     },
     outDir: "assets/scripts/mud/",
     assetsDir: ".",
