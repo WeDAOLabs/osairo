@@ -12,7 +12,7 @@
     "build": "vite build",
     "vite-version": "vite --version",
     "dev": "vite build --mode development",
-    "deploy:testnet": "vite build --mode testnet && mv ./assets/scripts/mud ./build/web-mobile/",
+    "deploy:testnet": "vite build --mode testnet && mv ./assets/scripts/mud ./build/web-mobile/ && mv ./assets/scripts/mud-dev ./build/web-mobile/",
     "preview": "vite preview",
     "test": "tsc --noEmit",
     "compile": "tsc"
