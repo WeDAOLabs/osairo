@@ -223,3 +223,5 @@ client/website/.env
 
 broadcast
 deploys
+
+/packages/client/assets/scripts/mud
