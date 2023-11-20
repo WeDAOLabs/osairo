@@ -5,7 +5,8 @@
       "polyfills": {
         "asyncFunctions": true
       },
-      "name": "Osairo"
+      "name": "Osairo",
+      "outputName": "web-h5"
     },
     "options": {
       "web-desktop": {

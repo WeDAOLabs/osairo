@@ -46,7 +46,7 @@ temp/
 local/
 
 jsb-binary/
-build/web-mobile/
+build/web-desktop/
 runtime/
 jsb/
 export/
