@@ -17,7 +17,7 @@ export default defineConfig({
         entryFileNames: "[name].js",
       },
     },
-    outDir: "assets/scripts/mud/",
+    outDir: "plugins/mud/",
     assetsDir: ".",
   },
 });
