@@ -41,13 +41,11 @@ artifacts
 # Cocos Creator Projects
 #/////////////////////////////////////////////////////////////////////////////
 product/
-build/
 library/
 temp/
 local/
 
 jsb-binary/
-build/web-desktop/
 build/web-mobile/
 runtime/
 jsb/
