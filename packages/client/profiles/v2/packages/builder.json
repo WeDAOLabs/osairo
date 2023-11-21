@@ -20,8 +20,8 @@
         "id": "1700482963675",
         "progress": 1,
         "state": "success",
-        "stage": "build",
-        "message": "2023-11-20 22:19:34 build success in 57460 ms!",
+        "stage": "run",
+        "message": "2023-11-21 10:19:46 run package /Users/enixlee/Documents/work/WeDAO/osairo/packages/client/build/web-mobile success!",
         "options": {
           "name": "client",
           "server": "",
@@ -57,7 +57,7 @@
           "buildMode": "normal",
           "logDest": "project://temp/builder/log/web-mobile11-20-2023 20-22.log"
         },
-        "time": "11-20-2023 22:18:36",
+        "time": "11-21-2023 10:16:13",
         "dirty": false
       }
     }
