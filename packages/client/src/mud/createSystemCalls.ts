@@ -30,9 +30,11 @@ export function createSystemCalls(
    *   syncToRecs
    *   (https://github.com/latticexyz/mud/blob/main/templates/vanilla/packages/client/src/mud/setupNetwork.ts#L77-L83).
    */
-  { worldContract, waitForTransaction }: SetupNetworkResult,
-  { Counter }: ClientComponents
+  setupNetworkResult: SetupNetworkResult,
+  clientComponents: ClientComponents
 ) {
+  const { worldContract, waitForTransaction } = setupNetworkResult;
+
   const increment = async () => {
     /*
      * Because IncrementSystem
@@ -42,8 +44,10 @@ export function createSystemCalls(
      */
     const tx = await worldContract.write.increment();
     await waitForTransaction(tx);
-    return getComponentValue(Counter, singletonEntity);
+    return getComponentValue(clientComponents.Counter, singletonEntity);
   };
+
+  // TODO systemCalls
 
   return {
     increment,

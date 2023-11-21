@@ -42,7 +42,9 @@ class MudEngine {
     this._env = import.meta.env;
   }
 
-  async init() {
+  public async rebuild() {
+    this._initialized = false;
+
     const {
       components,
       systemCalls: { increment },
@@ -54,6 +56,10 @@ class MudEngine {
     this._systemCalls = { increment };
 
     this._initialized = true;
+  }
+
+  async init() {
+    await this.rebuild();
   }
 }
 
