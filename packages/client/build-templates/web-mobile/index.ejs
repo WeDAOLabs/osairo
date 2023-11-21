@@ -35,7 +35,6 @@
 
   <link rel="stylesheet" type="text/css" href="<%= cssUrl %>"/>
 
-  <script src="/mud/index.js"/>
 </head>
 <body>
   <div id="GameDiv" cc_exact_fit_screen="true">
@@ -44,5 +43,6 @@
       </div>
     </div>
   <%- include(cocosTemplate, {}) %>
+  <script type="module" src="mud/mud.js"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ export default defineConfig({
     minify: true,
     sourcemap: false,
     rollupOptions: {
-      input: "src/index.ts",
+      input: "src/mud.ts",
       output: {
         entryFileNames: "[name].js",
       },
