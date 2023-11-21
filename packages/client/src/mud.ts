@@ -1,4 +1,6 @@
 import { setup } from "./mud/setup";
+import { Particle } from "./particle/index";
+
 class MudEngine {
   private _env: any = {};
   private _initialized: boolean = false;
@@ -31,12 +33,18 @@ class MudEngine {
     return this._components;
   }
 
+  public get particleConfig(): any {
+    return Particle;
+  }
+
   constructor() {
     // @ts-ignore
     this._env = import.meta.env;
   }
 
-  async init() {
+  public async rebuild() {
+    this._initialized = false;
+
     const {
       components,
       systemCalls: { increment },
@@ -48,6 +56,10 @@ class MudEngine {
     this._systemCalls = { increment };
 
     this._initialized = true;
+  }
+
+  async init() {
+    await this.rebuild();
   }
 }
 

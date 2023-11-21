@@ -63,7 +63,7 @@ export async function setupNetwork() {
   /*
    * Create an object for communicating with the deployed World.
    */
-  const worldContract = getContract({
+  const worldContract: any = getContract({
     address: networkConfig.worldAddress as Hex,
     abi: IWorldAbi,
     publicClient,
