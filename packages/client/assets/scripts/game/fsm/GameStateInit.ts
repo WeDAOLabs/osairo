@@ -87,6 +87,12 @@ export class GameStateGameInit extends GameFsmBase {
     this._engineLaunched = { mud: false, particle: false };
 
     await onAddedPromise(Login);
+
+    const startScreen =
+      gameManager.canvas.getComponentInChildren("StartScreen");
+    if (startScreen && startScreen.node) {
+      startScreen.node.destroy();
+    }
   }
 
   async onExit(): Promise<void> {
