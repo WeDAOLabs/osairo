@@ -224,4 +224,5 @@ deploys
 
 /packages/client/assets/scripts/mud
 /packages/client/assets/scripts/mud-dev
+/packages/client/assets/scripts/particle
 /packages/client/plugins/mud
