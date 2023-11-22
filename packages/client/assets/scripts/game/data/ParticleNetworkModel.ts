@@ -1,6 +1,5 @@
 import { DataModelBase } from "../../core/model/DataModelBase";
 import { registerDataModel } from "../../core/model/DataRegister";
-import { mudEngine } from "../mud/MudEngine";
 
 /*
  * @author: enixlee
@@ -8,16 +7,21 @@ import { mudEngine } from "../mud/MudEngine";
  * @date: 2023/11/21 17:02:36
  */
 export class ParticleNetworkModel extends DataModelBase {
+  private get particleEngine(): any {
+    //@ts-ignore
+    return globalThis.particleEngine;
+  }
+
   public get particle(): any {
-    return mudEngine.mud.particleConfig.service;
+    return this.particleEngine.service;
   }
 
   public get supportChains(): any[] {
-    return mudEngine.mud.particleConfig.chains;
+    return this.particleEngine.chains;
   }
 
   public get LoginType(): any {
-    return mudEngine.mud.particleConfig.SocialLoginType;
+    return this.particleEngine.SocialLoginType;
   }
 }
 export const particleNetworkModelData: Readonly<ParticleNetworkModel> =

@@ -28,6 +28,7 @@
     "@latticexyz/world": "2.0.0-next.14",
     "@particle-network/auth": "^1.2.2",
     "@particle-network/chains": "^1.3.2",
+    "@particle-network/connect": "^1.2.1",
     "@particle-network/provider": "^1.2.1",
     "contracts": "workspace:*",
     "events": "^3.3.0",
