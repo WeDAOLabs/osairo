@@ -1,4 +1,4 @@
-import { setup } from "./mud/setup";
+import { setup } from "./setup";
 
 class MudEngine {
   private _env: any = {};

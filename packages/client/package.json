@@ -11,8 +11,8 @@
   "scripts": {
     "build": "vite build",
     "vite-version": "vite --version",
-    "dev": "vite build --mode development && cp -r ./plugins/mud ./assets/scripts/ && cp -r ./plugins/mud-dev ./assets/scripts/ ",
-    "deploy:testnet": "rm -rf ./assets/scripts/mud && rm -rf ./assets/scripts/mud.meta && rm -rf ./assets/scripts/mud-dev && rm -rf ./assets/scripts/mud-dev.meta && vite build --mode testnet && cp -r ./plugins/mud ./build/web-mobile/ && cp -r ./plugins/mud-dev ./build/web-mobile/",
+    "dev": "vite build --mode development && cp -r ./plugins/mud ./assets/scripts/ && cp -r ./plugins/mud-dev ./assets/scripts/ && cp -r ./plugins/particle.js ./assets/scripts/mud/",
+    "deploy:testnet": "rm -rf ./assets/scripts/mud && rm -rf ./assets/scripts/mud.meta && rm -rf ./assets/scripts/mud-dev && rm -rf ./assets/scripts/mud-dev.meta && vite build --mode testnet && cp -r ./plugins/mud ./build/web-mobile/ && cp -r ./plugins/mud-dev ./build/web-mobile/ && cp -r ./plugins/particle.js ./build/web-mobile/",
     "preview": "vite preview",
     "test": "tsc --noEmit",
     "compile": "tsc"
