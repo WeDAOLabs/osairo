@@ -1,9 +1,9 @@
-import { StorageDriver } from './StorageDriver';
-import { StorageDriverLocalStorage } from './StorageDriverLocalStorage';
+import { StorageDriver } from "./StorageDriver";
+import { StorageDriverLocalStorage } from "./StorageDriverLocalStorage";
 
 export class StorageDefault extends StorageDriverLocalStorage {
   private cacheKey(): string {
-    return 'DB';
+    return "DB";
   }
 
   public getItemSync<T>(
@@ -48,6 +48,9 @@ export class StorageDefault extends StorageDriverLocalStorage {
     }
   }
 
+  /**
+   * load all storage cache data
+   */
   public loadFromCache() {
     this._storageData = super.getItemSync(this.cacheKey(), {});
   }

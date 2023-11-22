@@ -1,12 +1,12 @@
-import { Singleton } from '../game/Singleton';
-import { StorageDefault } from './StorageDefault';
-import { StorageDriver } from './StorageDriver';
+import { Singleton } from "../game/Singleton";
+import { StorageDefault } from "./StorageDefault";
+import { StorageDriver } from "./StorageDriver";
 
 export class Storage extends Singleton {
   private _driver: StorageDriver | null = null;
 
   public get driver(): StorageDriver {
-    return this._driver;
+    return this._driver!;
   }
 
   public initDriver(cacheVersion: string) {
