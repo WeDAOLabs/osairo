@@ -120,23 +120,6 @@ class ParticleService {
     }
   }
 
-  private registerEvent(particle: ParticleNetwork) {
-    // listen connect event
-    particle.auth.on("connect", (userInfo) => {
-      console.log("particle userInfo", userInfo);
-    });
-
-    // listen disconnect event
-    particle.auth.on("disconnect", () => {
-      console.log("particle disconnect");
-    });
-
-    // listen chainChanged event
-    particle.auth.on("chainChanged", (chain) => {
-      console.log("particle chainChanged", chain);
-    });
-  }
-
   public getClient(chain: ChainInfo): ParticleNetwork {
     if (!this._client) {
       this._client = new ParticleNetwork({
@@ -164,8 +147,6 @@ class ParticleService {
         modalBorderRadius: 10,
       });
       this._client.setERC4337(true);
-
-      this.registerEvent(this._client);
     }
     return this._client;
   }
