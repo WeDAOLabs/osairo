@@ -1,4 +1,5 @@
-import { setup } from "./mud/setup";
+import { setup } from "./setup";
+
 class MudEngine {
   private _env: any = {};
   private _initialized: boolean = false;
@@ -36,7 +37,9 @@ class MudEngine {
     this._env = import.meta.env;
   }
 
-  async init() {
+  public async rebuild() {
+    this._initialized = false;
+
     const {
       components,
       systemCalls: { increment },
@@ -48,6 +51,10 @@ class MudEngine {
     this._systemCalls = { increment };
 
     this._initialized = true;
+  }
+
+  async init() {
+    await this.rebuild();
   }
 }
 

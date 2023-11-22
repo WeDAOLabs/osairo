@@ -13,6 +13,9 @@ class MudEngine extends Singleton {
   }
 
   public async init() {
+    //@ts-ignore
+    // window.chainParams = { chainId: 31337 };
+
     await this.mud.init();
 
     // register event
@@ -42,9 +45,9 @@ class MudEngine extends Singleton {
     if (!component || !component?.update$) {
       return;
     }
-    component.update$.subscribe((update: any) =>
-      eventBus.emit(GameEventMudComponentUpdated.event, name, update)
-    );
+    component.update$.subscribe((update: any) => {
+      eventBus.emit(GameEventMudComponentUpdated.event, name, update);
+    });
   }
 }
 

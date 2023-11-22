@@ -1,9 +1,7 @@
 import { OnEvent } from "../../core/event/decorators/OnEventDecorator";
 import { uiConfigs } from "../../core/game/GameUI";
 import { GameEventGameLaunch } from "../../core/game/events/GameEventGameLaunch";
-import { onAddedPromise } from "../../core/layout/LayerHelper";
 import { gameManager } from "../../core/manager/GameManager";
-import { Login } from "../components/Login/Login";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 
@@ -22,7 +20,6 @@ export class GameStateIdle extends GameFsmBase {
 
   async onExit(): Promise<void> {
     gameManager.gui.init(uiConfigs());
-    await onAddedPromise(Login);
   }
 }
 

@@ -5,6 +5,7 @@ import { VERSION } from "../../const/Game";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { GameEventResourceLoading } from "../../events/GameEventResourceLoading";
+import { particleEngine } from "../../particle/ParticleEngine";
 const { menu, ccclass, property } = _decorator;
 
 @ccclass("Login")
@@ -28,6 +29,10 @@ export class Login extends LayoutCom {
     this.versionLabel.string = `version: ${VERSION.version}.${
       VERSION.buildVersion.split(".")[1]
     }`;
+
+    if (particleEngine.particle.hasLogin) {
+      console.log("已登录");
+    }
   }
 
   @OnEvent(GameEventResourceLoading.event)
@@ -38,6 +43,14 @@ export class Login extends LayoutCom {
 
     const percent = Math.floor((progress / total) * 100);
     this.loadingLabel.string = `loading....${percent}%`;
+  }
+
+  private onLoginClicked() {
+    try {
+      particleEngine.particle.login();
+    } catch (e) {
+      console.log("login failed", e);
+    }
   }
 }
 
