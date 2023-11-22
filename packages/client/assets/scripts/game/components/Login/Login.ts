@@ -39,6 +39,8 @@ export class Login extends LayoutCom {
     const percent = Math.floor((progress / total) * 100);
     this.loadingLabel.string = `loading....${percent}%`;
   }
+
+  private onLoginClicked() {}
 }
 
 registerLayout(Login);
