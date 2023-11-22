@@ -1,8 +1,10 @@
+import { eventBus } from "../../core/event/EventBus";
 import { onAddedPromise } from "../../core/layout/LayerHelper";
 import { gameManager } from "../../core/manager/GameManager";
 import { dataModels } from "../../core/model/DataRegister";
 import { Login } from "../components/Login/Login";
 import { Main } from "../components/Main/Main";
+import { GameEventLoginComplete } from "../events/GameEventLoginComplete";
 import { mudEngine } from "../mud/MudEngine";
 import { particleEngine } from "../particle/ParticleEngine";
 import { GameFsmBase } from "./GameFmsBase";
@@ -48,7 +50,9 @@ export class GameStateGameInit extends GameFsmBase {
     await mudEngine.init();
 
     await particleEngine.init();
+  }
 
+  private onLoginComplete() {
     const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
     if (timeSpan < 1000) {
       this.scheduleOnce(
@@ -77,11 +81,17 @@ export class GameStateGameInit extends GameFsmBase {
   }
 
   async onEnter(): Promise<void> {
+    eventBus.on(GameEventLoginComplete.event, this.onLoginComplete, this);
+
     this.initTimeDelay();
     this._engineLaunched = { mud: false, particle: false };
+
+    await onAddedPromise(Login);
   }
 
   async onExit(): Promise<void> {
+    eventBus.off(GameEventLoginComplete.event, this.onLoginComplete, this);
+
     const startScreen =
       gameManager.canvas.getComponentInChildren("StartScreen");
     await onAddedPromise(Main);
