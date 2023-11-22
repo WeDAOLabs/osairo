@@ -36,6 +36,10 @@ class ParticleService {
   private _connectKit: ParticleConnect | null = null;
   private _provider: Provider | null = null;
 
+  public get version(): string {
+    return "0.0.1";
+  }
+
   private get appId(): string {
     // @ts-ignore
     return import.meta.env.VUE_APP_PARTICLE_APP_ID ?? "";

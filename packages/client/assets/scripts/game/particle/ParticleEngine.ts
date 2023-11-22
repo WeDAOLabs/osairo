@@ -44,6 +44,8 @@ export class ParticleEngine extends Singleton {
 
   public async init() {
     this.registerEvents();
+
+    console.log(`particle engine init, version: ${this.particle.version}`);
   }
 }
 
