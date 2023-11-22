@@ -40,24 +40,25 @@ class ParticleService {
     return "0.0.1";
   }
 
-  private get appId(): string {
+  public get env(): any {
     // @ts-ignore
-    return import.meta.env.VUE_APP_PARTICLE_APP_ID ?? "";
+    return import.meta.env;
+  }
+
+  private get appId(): string {
+    return this.env.VITE_APP_PARTICLE_APP_ID ?? "";
   }
 
   private get projectId(): string {
-    // @ts-ignore
-    return import.meta.env.VUE_APP_PARTICLE_PROJECT_ID ?? "";
+    return this.env.VITE_APP_PARTICLE_PROJECT_ID ?? "";
   }
 
   private get clientKey(): string {
-    // @ts-ignore
-    return import.meta.env.VUE_APP_PARTICLE_CLIENT_KEY ?? "";
+    return this.env.VITE_APP_PARTICLE_CLIENT_KEY ?? "";
   }
 
   private get secretKey(): string {
-    // @ts-ignore
-    return import.meta.env.VUE_APP_PARTICLE_SECRET_KEY ?? "";
+    return this.env.VITE_APP_PARTICLE_SECRET_KEY ?? "";
   }
 
   private get connectConfig(): ConnectConfig {
@@ -230,10 +231,9 @@ class ParticleService {
   }
 
   async login(loginType = SocialLoginType.Email) {
-    const userInfo = await this.client.auth.login({
+    return await this.client.auth.login({
       preferredAuthType: loginType,
     });
-    console.log("login by user", userInfo);
   }
 
   async logout() {

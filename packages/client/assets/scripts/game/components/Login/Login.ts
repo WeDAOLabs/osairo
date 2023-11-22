@@ -45,9 +45,9 @@ export class Login extends LayoutCom {
     this.loadingLabel.string = `loading....${percent}%`;
   }
 
-  private onLoginClicked() {
+  private async onLoginClicked() {
     try {
-      particleEngine.particle.login();
+      await particleEngine.particle.login();
     } catch (e) {
       console.log("login failed", e);
     }
