@@ -1,5 +1,4 @@
-import { setup } from "./mud/setup";
-import { Particle } from "./particle/index";
+import { setup } from "./setup";
 
 class MudEngine {
   private _env: any = {};
@@ -31,10 +30,6 @@ class MudEngine {
 
   public get components(): any {
     return this._components;
-  }
-
-  public get particleConfig(): any {
-    return Particle;
   }
 
   constructor() {

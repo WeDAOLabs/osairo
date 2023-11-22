@@ -1,4 +1,4 @@
-import { ParticleNetwork } from "@particle-network/auth";
+import { ParticleNetwork, WalletEntryPosition } from "@particle-network/auth";
 import {
   PolygonMumbai,
   ArbitrumGoerli,
@@ -6,9 +6,17 @@ import {
   ChainInfo,
 } from "@particle-network/chains";
 import { ParticleProvider } from "@particle-network/provider";
+import {
+  ConnectConfig,
+  ParticleConnect,
+  Provider,
+  // metaMask,
+  // walletconnect,
+} from "@particle-network/connect";
 
 // "email", "phone", "facebook", "google", "apple", "discord", "github", "twitch", "twitter", "microsoft", "linkedin", "jwt"
 enum SocialLoginType {
+  Email = "email",
   Twitter = "twitter",
   Github = "github",
   Google = "google",
@@ -16,41 +24,104 @@ enum SocialLoginType {
   JWT = "jwt",
 }
 
+enum ParticleConnectType {
+  MetaMask = "metamask",
+  Particle = "particle",
+  WalletConnect = "walletconnect_v2",
+}
+
 class ParticleService {
   private _client: ParticleNetwork | null = null;
   private _particleProvider: ParticleProvider | null = null;
+  private _connectKit: ParticleConnect | null = null;
+  private _provider: Provider | null = null;
 
-  get appId(): string {
+  public get version(): string {
+    return "0.0.1";
+  }
+
+  private get appId(): string {
     // @ts-ignore
     return import.meta.env.VUE_APP_PARTICLE_APP_ID ?? "";
   }
 
-  get projectId(): string {
+  private get projectId(): string {
     // @ts-ignore
     return import.meta.env.VUE_APP_PARTICLE_PROJECT_ID ?? "";
   }
 
-  get clientKey(): string {
+  private get clientKey(): string {
     // @ts-ignore
     return import.meta.env.VUE_APP_PARTICLE_CLIENT_KEY ?? "";
   }
 
-  get secretKey(): string {
+  private get secretKey(): string {
     // @ts-ignore
     return import.meta.env.VUE_APP_PARTICLE_SECRET_KEY ?? "";
   }
 
-  get client(): ParticleNetwork {
-    if (!this._client) {
-      this._client = new ParticleNetwork({
-        projectId: this.projectId,
-        clientKey: this.clientKey,
-        appId: this.appId,
-        chainName: PolygonMumbai.name,
-        chainId: PolygonMumbai.id,
-      });
+  private get connectConfig(): ConnectConfig {
+    //@ts-ignore
+    const env = import.meta.env;
+    const config: ConnectConfig = {
+      projectId: env.VUE_APP_PARTICLE_PROJECT_ID,
+      clientKey: env.VUE_APP_PARTICLE_CLIENT_KEY,
+      appId: env.VUE_APP_PARTICLE_APP_ID,
+      chains: [PolygonMumbai, EthereumSepolia],
+      wallets: [
+        // metaMask({
+        //   projectId: env.VITE_APP_WALLETCONNECT_PROJECT_ID,
+        //   showQrModal: false,
+        // }),
+        // walletconnect({
+        //   projectId: env.VITE_APP_WALLETCONNECT_PROJECT_ID,
+        //   showQrModal: true,
+        // }),
+      ],
+    };
+
+    return config;
+  }
+
+  private get connectKit(): ParticleConnect {
+    if (!this._connectKit) {
+      this._connectKit = new ParticleConnect(this.connectConfig);
     }
-    return this._client;
+    return this._connectKit;
+  }
+
+  public get particleProvider(): ParticleProvider {
+    if (!this._particleProvider) {
+      this._particleProvider = new ParticleProvider(this.client.auth);
+    }
+    return this._particleProvider;
+  }
+
+  public get client(): ParticleNetwork {
+    return this.getClient(PolygonMumbai);
+  }
+
+  public get provider(): Provider | null {
+    return this._provider;
+  }
+
+  public get hasLogin() {
+    return this.client.auth.isLogin();
+  }
+
+  public get userInfo() {
+    return this.client.auth.getUserInfo();
+  }
+
+  public async onConnect(
+    id: ParticleConnectType = ParticleConnectType.Particle,
+    options?: any
+  ) {
+    try {
+      this._provider = await this.connectKit.connect(id, options);
+    } catch (error) {
+      console.error("connectWallet", error);
+    }
   }
 
   public getClient(chain: ChainInfo): ParticleNetwork {
@@ -61,7 +132,25 @@ class ParticleService {
         appId: this.appId,
         chainName: chain.name,
         chainId: chain.id,
+        wallet: {
+          displayWalletEntry: true,
+          defaultWalletEntryPosition: WalletEntryPosition.BR,
+          uiMode: "auto",
+          supportChains: [PolygonMumbai, EthereumSepolia],
+          customStyle: {},
+        },
+        securityAccount: {
+          promptSettingWhenSign: 1,
+          promptMasterPasswordSettingWhenLogin: 1,
+        },
       });
+      this._client.setAuthTheme({
+        uiMode: "auto",
+        displayCloseButton: true,
+        displayWallet: true,
+        modalBorderRadius: 10,
+      });
+      this._client.setERC4337(true);
     }
     return this._client;
   }
@@ -69,13 +158,6 @@ class ParticleService {
   public clearChainInfo() {
     this._client = null;
     this._particleProvider = null;
-  }
-
-  private get particleProvider(): ParticleProvider {
-    if (!this._particleProvider) {
-      this._particleProvider = new ParticleProvider(this.client.auth);
-    }
-    return this._particleProvider;
   }
 
   /**
@@ -141,16 +223,28 @@ class ParticleService {
     "redirect_type": "login"
 }
    */
-  async loginWithSocialAccount(loginType = SocialLoginType.Twitter) {
+
+  async isLoginAsync(): Promise<any> {
+    // return userinfo
+    return await this.client.auth.isLoginAsync();
+  }
+
+  async login(loginType = SocialLoginType.Email) {
     const userInfo = await this.client.auth.login({
       preferredAuthType: loginType,
     });
-    console.log(userInfo);
+    console.log("login by user", userInfo);
+  }
+
+  async logout() {
+    await this.client.auth.logout();
   }
 }
 
-export const Particle = {
+const context = globalThis as any;
+context.particleEngine = {
   SocialLoginType,
+  ParticleConnectType,
   service: new ParticleService(),
   chains: [PolygonMumbai, ArbitrumGoerli, EthereumSepolia],
 };

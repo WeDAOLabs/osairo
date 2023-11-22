@@ -1,15 +1,22 @@
+import { eventBus } from "../../core/event/EventBus";
 import { onAddedPromise } from "../../core/layout/LayerHelper";
 import { gameManager } from "../../core/manager/GameManager";
 import { dataModels } from "../../core/model/DataRegister";
 import { Login } from "../components/Login/Login";
 import { Main } from "../components/Main/Main";
+import { GameEventLoginComplete } from "../events/GameEventLoginComplete";
 import { mudEngine } from "../mud/MudEngine";
+import { particleEngine } from "../particle/ParticleEngine";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 
 export class GameStateGameInit extends GameFsmBase {
   private _timeInterval = 0;
-  private _mudEngineLaunched: boolean = false;
+  private _initialized = false;
+  private _engineLaunched = {
+    mud: false,
+    particle: false,
+  };
 
   constructor(owner: any) {
     super(SceneState.GAME_INIT, owner);
@@ -23,7 +30,12 @@ export class GameStateGameInit extends GameFsmBase {
     this._timeInterval = gameManager.timer.getLocalTime();
   }
 
+  private get isEngineLaunched(): boolean {
+    return this._engineLaunched.mud && this._engineLaunched.particle;
+  }
+
   private async initGame() {
+    this._initialized = true;
     // if (!walletData.hasProvider) {
     //   Toast.showMessage(
     //     `there's no provider has been found, please install metamask first`
@@ -37,6 +49,10 @@ export class GameStateGameInit extends GameFsmBase {
 
     await mudEngine.init();
 
+    await particleEngine.init();
+  }
+
+  private onLoginComplete() {
     const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
     if (timeSpan < 1000) {
       this.scheduleOnce(
@@ -49,22 +65,39 @@ export class GameStateGameInit extends GameFsmBase {
   }
 
   tick() {
-    if (this._mudEngineLaunched) {
+    if (this.isEngineLaunched) {
+      if (!this._initialized) {
+        this.initGame();
+      }
       return;
     }
 
     if (mudEngine.mud) {
-      this._mudEngineLaunched = true;
-      this.initGame();
+      this._engineLaunched.mud = true;
+    }
+    if (particleEngine.particle) {
+      this._engineLaunched.particle = true;
     }
   }
 
   async onEnter(): Promise<void> {
+    eventBus.on(GameEventLoginComplete.event, this.onLoginComplete, this);
+
     this.initTimeDelay();
-    this._mudEngineLaunched = false;
+    this._engineLaunched = { mud: false, particle: false };
+
+    await onAddedPromise(Login);
+
+    const startScreen =
+      gameManager.canvas.getComponentInChildren("StartScreen");
+    if (startScreen && startScreen.node) {
+      startScreen.node.destroy();
+    }
   }
 
   async onExit(): Promise<void> {
+    eventBus.off(GameEventLoginComplete.event, this.onLoginComplete, this);
+
     const startScreen =
       gameManager.canvas.getComponentInChildren("StartScreen");
     await onAddedPromise(Main);

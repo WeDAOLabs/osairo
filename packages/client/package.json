@@ -11,8 +11,9 @@
   "scripts": {
     "build": "vite build",
     "vite-version": "vite --version",
-    "dev": "vite build --mode development && cp -r ./plugins/mud ./assets/scripts/ && cp -r ./plugins/mud-dev ./assets/scripts/ ",
-    "deploy:testnet": "rm -rf ./assets/scripts/mud && rm -rf ./assets/scripts/mud.meta && rm -rf ./assets/scripts/mud-dev && rm -rf ./assets/scripts/mud-dev.meta && vite build --mode testnet && cp -r ./plugins/mud ./build/web-mobile/ && cp -r ./plugins/mud-dev ./build/web-mobile/",
+    "dev": "vite build --mode development && cp -r ./plugins/mud ./assets/scripts/ && cp -r ./plugins/mud-dev ./assets/scripts/ && cp -r ./plugins/particle ./assets/scripts/",
+    "compile:particle": "vite build --mode development",
+    "deploy:testnet": "rm -rf ./assets/scripts/mud && rm -rf ./assets/scripts/mud.meta && rm -rf ./assets/scripts/mud-dev && rm -rf ./assets/scripts/mud-dev.meta && rm -rf ./assets/scripts/particle && rm -rf ./assets/scripts/particle.meta && vite build --mode testnet && cp -r ./plugins/mud ./build/web-mobile/ && cp -r ./plugins/mud-dev ./build/web-mobile/ && cp -r ./plugins/particle ./build/web-mobile/",
     "preview": "vite preview",
     "test": "tsc --noEmit",
     "compile": "tsc"
@@ -28,6 +29,7 @@
     "@latticexyz/world": "2.0.0-next.14",
     "@particle-network/auth": "^1.2.2",
     "@particle-network/chains": "^1.3.2",
+    "@particle-network/connect": "^1.2.1",
     "@particle-network/provider": "^1.2.1",
     "contracts": "workspace:*",
     "events": "^3.3.0",
