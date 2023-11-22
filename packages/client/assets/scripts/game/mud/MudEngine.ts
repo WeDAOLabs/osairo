@@ -14,7 +14,7 @@ class MudEngine extends Singleton {
 
   public async init() {
     //@ts-ignore
-    // window.chainParams = { chainId: 31337 };
+    window.chainParams = { chainId: 31337 };
 
     await this.mud.init();
 
