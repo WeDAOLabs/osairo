@@ -2,8 +2,14 @@ import { Singleton } from "../../core/game/Singleton";
 
 export class ParticleEngine extends Singleton {
   private get particleEngine(): any {
-    //@ts-ignore
-    return globalThis.particleEngine;
+    return (
+      //@ts-ignore
+      globalThis?.particleEngine ?? {
+        service: undefined,
+        chains: [],
+        SocialLoginType: {},
+      }
+    );
   }
 
   public get particle(): any {
@@ -40,3 +46,6 @@ export class ParticleEngine extends Singleton {
     });
   }
 }
+
+export const particleEngine: Readonly<ParticleEngine> =
+  ParticleEngine.getInstance();
