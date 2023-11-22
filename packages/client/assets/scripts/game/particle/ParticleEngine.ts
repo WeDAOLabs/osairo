@@ -24,10 +24,6 @@ export class ParticleEngine extends Singleton {
     return this.particleEngine.SocialLoginType;
   }
 
-  protected initialize() {
-    this.registerEvents();
-  }
-
   private registerEvents() {
     const provider = this.particle.getClient(this.supportChains[0]);
     // listen connect event
@@ -44,6 +40,10 @@ export class ParticleEngine extends Singleton {
     provider.auth.on("chainChanged", (chain: any) => {
       console.log("particle chainChanged", chain);
     });
+  }
+
+  public async init() {
+    this.registerEvents();
   }
 }
 

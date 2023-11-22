@@ -47,6 +47,8 @@ export class GameStateGameInit extends GameFsmBase {
 
     await mudEngine.init();
 
+    await particleEngine.init();
+
     const timeSpan = gameManager.timer.getLocalTime() - this._timeInterval;
     if (timeSpan < 1000) {
       this.scheduleOnce(
