@@ -48,7 +48,9 @@ export class Loading extends PopUpLayout {
   public get tipTxt() {
     return this._txt
       ? this._txt
-      : language.getLang("loading...({leftTime})", { leftTime: this.leftTime });
+      : language.getLang("loading...({leftTime}s)", {
+          leftTime: this.leftTime,
+        });
   }
 
   private get leftTime(): number {
@@ -128,7 +130,9 @@ export class Loading extends PopUpLayout {
   }
 
   static remove(isDestroy: boolean = true) {
+    console.log("slsslsl", this._callStack.length);
     this._callStack.pop();
+    console.log("slsslsl22", this._callStack.length);
     if (this._callStack.length > 0) {
       return;
     }

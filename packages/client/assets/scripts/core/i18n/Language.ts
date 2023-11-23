@@ -87,11 +87,8 @@ export class LanguageManager extends Singleton {
   public getLang(key: string, params?: any, defaultLang?: string): string {
     const langDict = this._languageData ?? {};
     const lang = langDict[this._currentLang];
-    if (!lang) {
-      return defaultLang ?? key;
-    }
 
-    let txt: string = lang[key] ?? defaultLang ?? key;
+    let txt: string = (lang ? lang[key] : defaultLang) ?? defaultLang ?? key;
     if (params) {
       const keys: string[] = Object.keys(params);
       keys.forEach((key) => {
