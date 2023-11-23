@@ -19,7 +19,6 @@ export class PlayerData extends DataModelBase {
 
   @OnEvent(GameEventLoginComplete.event)
   public setPlayer(player: PlayerDTO) {
-    console.log("shezhiyonghu", player);
     this._currentPlayer = player;
   }
 }

@@ -47,9 +47,9 @@ export class GameStateGameInit extends GameFsmBase {
 
     await this._loadResources();
 
-    await mudEngine.init();
-
     await particleEngine.init();
+
+    await mudEngine.init();
   }
 
   private onLoginComplete() {
