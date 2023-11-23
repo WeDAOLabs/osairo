@@ -1,15 +1,15 @@
-import { Singleton } from '../game/Singleton';
+import { Singleton } from "../game/Singleton";
 
 export enum LanguageEvent {
-  CHANGE = 'LanguageEvent.CHANGE',
-  RELEASE_RES = 'LanguageEvent.RELEASE_RES',
+  CHANGE = "LanguageEvent.CHANGE",
+  RELEASE_RES = "LanguageEvent.RELEASE_RES",
 }
 
 export class LanguageManager extends Singleton {
   private _languageData: any;
 
-  private _currentLang: string = '';
-  private _supportLanguages: Array<string> = ['zh-CN', 'en'];
+  private _currentLang: string = "";
+  private _supportLanguages: Array<string> = ["zh-CN", "en"];
 
   private _hasInit: boolean = false;
 
@@ -19,7 +19,7 @@ export class LanguageManager extends Singleton {
   }
 
   public get defaultLang(): string {
-    return 'en';
+    return "en";
   }
 
   public get hasInit(): boolean {
@@ -52,12 +52,12 @@ export class LanguageManager extends Singleton {
     }
 
     Object.keys(data).forEach((key) => {
-      if (key !== 'zh-CN') {
+      if (key !== "zh-CN") {
         const langs = data[key];
         Object.keys(langs).forEach(
           (langKey) =>
             (langs[langKey] = langs[langKey]
-              ? langs[langKey].replace(/，/g, ',')
+              ? langs[langKey].replace(/，/g, ",")
               : langKey)
         );
       }
@@ -85,7 +85,8 @@ export class LanguageManager extends Singleton {
   }
 
   public getLang(key: string, params?: any, defaultLang?: string): string {
-    const lang = this._languageData[this._currentLang];
+    const langDict = this._languageData ?? {};
+    const lang = langDict[this._currentLang];
     if (!lang) {
       return defaultLang ?? key;
     }

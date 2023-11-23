@@ -10,6 +10,8 @@ import { GameEventWalletConnected } from "../../events/GameEventWalletConnected"
 import { eventBus } from "../../../core/event/EventBus";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
 import { PlayerDTO } from "../../data/dto/PlayerDTO";
+import { Loading } from "../Loading/Loading";
+import { Toast } from "../Toast/Toast";
 const { menu, ccclass, property } = _decorator;
 
 @ccclass("Login")
@@ -30,6 +32,7 @@ export class Login extends LayoutCom {
   private versionLabel: Label = null!;
 
   protected async load() {
+    Loading.open();
     this.versionLabel.string = `version: ${VERSION.version}.${
       VERSION.buildVersion.split(".")[1]
     }`;
@@ -38,6 +41,7 @@ export class Login extends LayoutCom {
     if (userInfo) {
       this.onWalletConnected(userInfo);
     }
+    Loading.remove();
   }
 
   @OnEvent(GameEventResourceLoading.event)
@@ -58,7 +62,8 @@ export class Login extends LayoutCom {
   private async onLoginClicked() {
     try {
       await particleEngine.particle.login();
-    } catch (e) {
+    } catch (e: any) {
+      Toast.showTip(`login failed: ${e.message}`);
       console.log("login failed", e);
     }
   }
