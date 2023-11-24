@@ -35,9 +35,13 @@ export class Login extends LayoutCom {
       VERSION.buildVersion.split(".")[1]
     }`;
 
-    const userInfo = await particleEngine.particle.isLoginAsync();
-    if (userInfo) {
-      this.onWalletConnected(userInfo);
+    try {
+      const userInfo = await particleEngine.particle.isLoginAsync();
+      if (userInfo) {
+        this.onWalletConnected(userInfo);
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 
