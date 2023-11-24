@@ -6,6 +6,11 @@ import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { GameEventResourceLoading } from "../../events/GameEventResourceLoading";
 import { particleEngine } from "../../particle/ParticleEngine";
+import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
+import { eventBus } from "../../../core/event/EventBus";
+import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
+import { PlayerDTO } from "../../data/dto/PlayerDTO";
+import { Toast } from "../Toast/Toast";
 const { menu, ccclass, property } = _decorator;
 
 @ccclass("Login")
@@ -25,13 +30,14 @@ export class Login extends LayoutCom {
   @property(Label)
   private versionLabel: Label = null!;
 
-  protected load() {
+  protected async load() {
     this.versionLabel.string = `version: ${VERSION.version}.${
       VERSION.buildVersion.split(".")[1]
     }`;
 
-    if (particleEngine.particle.hasLogin) {
-      console.log("已登录");
+    const userInfo = await particleEngine.particle.isLoginAsync();
+    if (userInfo) {
+      this.onWalletConnected(userInfo);
     }
   }
 
@@ -45,10 +51,16 @@ export class Login extends LayoutCom {
     this.loadingLabel.string = `loading....${percent}%`;
   }
 
+  @OnEvent(GameEventWalletConnected.event)
+  private onWalletConnected(userInfo: any) {
+    eventBus.emit(GameEventLoginComplete.event, PlayerDTO.fillWith(userInfo));
+  }
+
   private async onLoginClicked() {
     try {
       await particleEngine.particle.login();
-    } catch (e) {
+    } catch (e: any) {
+      Toast.showTip(`login failed: ${e.message}`);
       console.log("login failed", e);
     }
   }

@@ -9,14 +9,18 @@ import { mudEngine } from "../mud/MudEngine";
 import { particleEngine } from "../particle/ParticleEngine";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
+import { ethers } from "../plugins/ethers/Ethers";
+
+interface IEngineMap {
+  mud: boolean;
+  particle: boolean;
+  ethers: boolean;
+}
 
 export class GameStateGameInit extends GameFsmBase {
   private _timeInterval = 0;
   private _initialized = false;
-  private _engineLaunched = {
-    mud: false,
-    particle: false,
-  };
+  private _engineLaunched: IEngineMap = null!;
 
   constructor(owner: any) {
     super(SceneState.GAME_INIT, owner);
@@ -31,7 +35,11 @@ export class GameStateGameInit extends GameFsmBase {
   }
 
   private get isEngineLaunched(): boolean {
-    return this._engineLaunched.mud && this._engineLaunched.particle;
+    return (
+      this._engineLaunched.mud &&
+      this._engineLaunched.particle &&
+      this._engineLaunched.ethers
+    );
   }
 
   private async initGame() {
@@ -47,9 +55,11 @@ export class GameStateGameInit extends GameFsmBase {
 
     await this._loadResources();
 
+    await particleEngine.init();
+
     await mudEngine.init();
 
-    await particleEngine.init();
+    // await mudEngine.init(particleEngine.network);
   }
 
   private onLoginComplete() {
@@ -73,10 +83,16 @@ export class GameStateGameInit extends GameFsmBase {
     }
 
     if (mudEngine.mud) {
+      console.log("加载mud");
       this._engineLaunched.mud = true;
     }
     if (particleEngine.particle) {
+      console.log("加载particle");
       this._engineLaunched.particle = true;
+    }
+    if (ethers) {
+      console.log("加载ethers");
+      this._engineLaunched.ethers = true;
     }
   }
 
@@ -84,8 +100,11 @@ export class GameStateGameInit extends GameFsmBase {
     eventBus.on(GameEventLoginComplete.event, this.onLoginComplete, this);
 
     this.initTimeDelay();
-    this._engineLaunched = { mud: false, particle: false };
-
+    this._engineLaunched = {
+      mud: false,
+      particle: false,
+      ethers: false,
+    };
     await onAddedPromise(Login);
 
     const startScreen =
