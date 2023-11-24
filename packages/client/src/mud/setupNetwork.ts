@@ -13,7 +13,6 @@ import IWorldAbi from "contracts/out/IWorld.sol/IWorld.abi.json";
 import { createBurnerAccount, getContract, transportObserver, ContractWrite } from "@latticexyz/common";
 
 import { Subject, share } from "rxjs";
-
 /*
  * Import our MUD config, which includes strong types for
  * our tables and other config options. We use this to generate
@@ -26,7 +25,7 @@ import mudConfig from "contracts/mud.config";
 
 export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;
 
-export async function setupNetwork() {
+export async function setupNetwork(provider?:any) {
   // @ts-ignore
   const debug = import.meta.env.VITE_DEV;
 
@@ -67,7 +66,7 @@ export async function setupNetwork() {
     address: networkConfig.worldAddress as Hex,
     abi: IWorldAbi,
     publicClient,
-    walletClient: burnerWalletClient,
+    walletClient: provider ?? burnerWalletClient,
     onWrite: (write) => write$.next(write),
   });
 
@@ -113,12 +112,14 @@ export async function setupNetwork() {
     setInterval(requestDrip, 20000);
   }
 
-  return {
+  const address = provider ? provider.address : burnerWalletClient.account.address;
+
+  const module = {
     world,
     components,
-    playerEntity: encodeEntity({ address: "address" }, { address: burnerWalletClient.account.address }),
+    playerEntity: encodeEntity({ address: "address" }, { address: address}),
     publicClient,
-    walletClient: burnerWalletClient,
+    walletClient: provider ?? burnerWalletClient,
     latestBlock$,
     storedBlockLogs$,
     waitForTransaction,
@@ -126,4 +127,6 @@ export async function setupNetwork() {
     write$: write$.asObservable().pipe(share()),
     worldAddress: debug ? networkConfig.worldAddress : 'unknown'
   };
+
+  return module;
 }

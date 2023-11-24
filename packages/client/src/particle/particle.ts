@@ -57,17 +57,11 @@ class ParticleService {
     return this.env.VITE_APP_PARTICLE_CLIENT_KEY ?? "";
   }
 
-  private get secretKey(): string {
-    return this.env.VITE_APP_PARTICLE_SECRET_KEY ?? "";
-  }
-
   private get connectConfig(): ConnectConfig {
-    //@ts-ignore
-    const env = import.meta.env;
     const config: ConnectConfig = {
-      projectId: env.VUE_APP_PARTICLE_PROJECT_ID,
-      clientKey: env.VUE_APP_PARTICLE_CLIENT_KEY,
-      appId: env.VUE_APP_PARTICLE_APP_ID,
+      projectId: this.projectId,
+      clientKey: this.clientKey,
+      appId: this.appId,
       chains: [PolygonMumbai, EthereumSepolia],
       wallets: [
         // metaMask({
