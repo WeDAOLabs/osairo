@@ -37,14 +37,14 @@ class MudEngine {
     this._env = import.meta.env;
   }
 
-  public async rebuild() {
+  public async rebuild(wallet?: any) {
     this._initialized = false;
 
     const {
       components,
       systemCalls: { increment },
       network,
-    } = await setup();
+    } = await setup(wallet);
 
     this._network = network;
     this._components = components;
@@ -53,8 +53,8 @@ class MudEngine {
     this._initialized = true;
   }
 
-  async init() {
-    await this.rebuild();
+  async init(wallet?: any) {
+    await this.rebuild(wallet);
   }
 }
 
