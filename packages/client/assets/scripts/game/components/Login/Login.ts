@@ -5,7 +5,7 @@ import { VERSION } from "../../const/Game";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { GameEventResourceLoading } from "../../events/GameEventResourceLoading";
-import { particleEngine } from "../../particle/ParticleEngine";
+import { particleEngine } from "../../plugins/particle/ParticleEngine";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
 import { eventBus } from "../../../core/event/EventBus";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";

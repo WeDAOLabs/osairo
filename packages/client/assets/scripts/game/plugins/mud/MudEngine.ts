@@ -1,6 +1,6 @@
-import { eventBus } from "../../core/event/EventBus";
-import { Singleton } from "../../core/game/Singleton";
-import { GameEventMudComponentUpdated } from "../events/GameEventMudComponentUpdated";
+import { eventBus } from "../../../core/event/EventBus";
+import { Singleton } from "../../../core/game/Singleton";
+import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
 
 class MudEngine extends Singleton {
   public get mud(): any {

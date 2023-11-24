@@ -1,8 +1,8 @@
-import { eventBus } from "../../core/event/EventBus";
-import { Singleton } from "../../core/game/Singleton";
-import { GameEventWalletChainChanged } from "../events/GameEventWalletChainChanged";
-import { GameEventWalletConnected } from "../events/GameEventWalletConnected";
-import { GameEventWalletDisconnected } from "../events/GameEventWalletDisconnected";
+import { eventBus } from "../../../core/event/EventBus";
+import { Singleton } from "../../../core/game/Singleton";
+import { GameEventWalletChainChanged } from "../../events/GameEventWalletChainChanged";
+import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
+import { GameEventWalletDisconnected } from "../../events/GameEventWalletDisconnected";
 
 export class ParticleEngine extends Singleton {
   private get particleEngine(): any {

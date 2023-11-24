@@ -1,7 +1,7 @@
 import { Label, _decorator } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
-import { mudEngine } from "../../mud/MudEngine";
+import { mudEngine } from "../../plugins/mud/MudEngine";
 import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
 import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
 const { menu, ccclass, property } = _decorator;
