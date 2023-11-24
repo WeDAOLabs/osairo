@@ -12,11 +12,11 @@ class MudEngine extends Singleton {
     return this.mud.systemCalls;
   }
 
-  public async init(provider?: any) {
+  public async init(wallet?: any) {
     //@ts-ignore
     // window.chainParams = { chainId: 31337 };
 
-    await this.mud.init(provider);
+    await this.mud.init(wallet);
 
     // register event
     this.registerComponents();
@@ -24,6 +24,8 @@ class MudEngine extends Singleton {
       console.log(
         `mud init, version: ${this.mud.version}, world address: ${this.mud.network.worldAddress}`
       );
+
+      console.log("网络", this.mud.network.worldContract);
     }
   }
 

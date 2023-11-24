@@ -5,7 +5,7 @@ import { GameEventWalletConnected } from "../../events/GameEventWalletConnected"
 import { GameEventWalletDisconnected } from "../../events/GameEventWalletDisconnected";
 
 export class ParticleEngine extends Singleton {
-  private get particleEngine(): any {
+  private get engine(): any {
     return (
       //@ts-ignore
       globalThis?.particleEngine ?? {
@@ -16,28 +16,28 @@ export class ParticleEngine extends Singleton {
     );
   }
 
-  public get particle(): any {
-    return this.particleEngine.service;
+  public get service(): any {
+    return this.engine.service;
   }
 
-  public get network(): any {
-    return this.particle.client;
+  public get particle(): any {
+    return this.service.client;
   }
 
   public get particleProvider(): any {
-    return this.network.particleProvider;
+    return this.particle.particleProvider;
   }
 
   public get supportChains(): any[] {
-    return this.particleEngine.chains;
+    return this.engine.chains;
   }
 
   public get LoginType(): any {
-    return this.particleEngine.SocialLoginType;
+    return this.engine.SocialLoginType;
   }
 
   private registerEvents() {
-    const provider = this.particle.getClient(this.supportChains[0]);
+    const provider = this.service.getClient(this.supportChains[0]);
 
     // listen connect event
     provider.auth.on("connect", (userInfo: any) => {
@@ -60,7 +60,7 @@ export class ParticleEngine extends Singleton {
   public async init() {
     this.registerEvents();
 
-    console.log(`particle engine init, version: ${this.particle.version}`);
+    console.log(`particle engine init, version: ${this.service.version}`);
   }
 }
 

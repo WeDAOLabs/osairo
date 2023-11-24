@@ -85,7 +85,7 @@ export class GameStateGameInit extends GameFsmBase {
     if (mudEngine.mud) {
       this._engineLaunched.mud = true;
     }
-    if (particleEngine.particle) {
+    if (particleEngine.service) {
       this._engineLaunched.particle = true;
     }
     if (ethers) {
