@@ -25,7 +25,7 @@ export class ParticleEngine extends Singleton {
   }
 
   public get particleProvider(): any {
-    return this.particle.particleProvider;
+    return this.service.particleProvider;
   }
 
   public get supportChains(): any[] {

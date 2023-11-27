@@ -44,12 +44,6 @@ export class GameStateGameInit extends GameFsmBase {
 
   private async initGame() {
     this._initialized = true;
-    // if (!walletData.hasProvider) {
-    //   Toast.showMessage(
-    //     `there's no provider has been found, please install metamask first`
-    //   );
-    //   return Promise.resolve();
-    // }
 
     await this._loadDataModels();
 
@@ -58,8 +52,6 @@ export class GameStateGameInit extends GameFsmBase {
     await particleEngine.init();
 
     await mudEngine.init();
-
-    // await mudEngine.init(particleEngine.network);
   }
 
   private onLoginComplete() {

@@ -35,6 +35,18 @@ export function createSystemCalls(
 ) {
   const { worldContract, waitForTransaction } = setupNetworkResult;
 
+  let _worldContract = worldContract;
+
+  const setWorld = (world: any) => {
+    if (world) {
+      _worldContract = world;
+    }
+  };
+
+  const _getCaller = () => {
+    return _worldContract?.write ? _worldContract.write : _worldContract;
+  };
+
   const increment = async () => {
     /*
      * Because IncrementSystem
@@ -42,7 +54,7 @@ export function createSystemCalls(
      * is in the root namespace, `.increment` can be called directly
      * on the World contract.
      */
-    const tx = await worldContract.write.increment();
+    const tx = await _getCaller().increment();
     await waitForTransaction(tx);
     return getComponentValue(clientComponents.Counter, singletonEntity);
   };
@@ -50,6 +62,9 @@ export function createSystemCalls(
   // TODO systemCalls
 
   return {
+    setWorld,
+    waitForTransaction,
+    getComponentValue,
     increment,
   };
 }

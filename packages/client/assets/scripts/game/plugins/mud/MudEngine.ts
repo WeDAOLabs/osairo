@@ -1,4 +1,5 @@
 import { eventBus } from "../../../core/event/EventBus";
+import { MUD_DEV_CHAIN } from "../../../core/event/constants";
 import { Singleton } from "../../../core/game/Singleton";
 import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
 
@@ -8,15 +9,19 @@ class MudEngine extends Singleton {
     return globalThis.mudEngine;
   }
 
+  public get isMudDevChain() {
+    return this.mud.network?.chain?.id === MUD_DEV_CHAIN;
+  }
+
   public get systemCalls(): any {
     return this.mud.systemCalls;
   }
 
-  public async init(wallet?: any) {
+  public async init(provider?: any) {
     //@ts-ignore
     // window.chainParams = { chainId: 31337 };
 
-    await this.mud.init(wallet);
+    await this.mud.init(provider);
 
     // register event
     this.registerComponents();
@@ -24,8 +29,6 @@ class MudEngine extends Singleton {
       console.log(
         `mud init, version: ${this.mud.version}, world address: ${this.mud.network.worldAddress}`
       );
-
-      console.log("网络", this.mud.network.worldContract);
     }
   }
 
