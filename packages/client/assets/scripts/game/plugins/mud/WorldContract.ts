@@ -34,8 +34,8 @@ export class WorldContract extends Singleton {
 
   public async registerDelegation() {
     if (!mudEngine.isMudDevChain) {
-      // const world = await this.getContract();
-      // mudEngine.systemCalls.setWorld(world);
+      const world = await this.getContract();
+      mudEngine.systemCalls.setWorld(world);
       // this.scheduleOnce(async () => {
       //   try {
       //     const tx = await world.increment();

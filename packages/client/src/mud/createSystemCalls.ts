@@ -47,6 +47,11 @@ export function createSystemCalls(
     return _worldContract?.write ? _worldContract.write : _worldContract;
   };
 
+  const waitForTransactionComplete = async (tx: any) => {
+    const hash = typeof tx === "string" ? tx : tx.hash;
+    await waitForTransaction(hash);
+  };
+
   const increment = async () => {
     /*
      * Because IncrementSystem
@@ -55,7 +60,7 @@ export function createSystemCalls(
      * on the World contract.
      */
     const tx = await _getCaller().increment();
-    await waitForTransaction(tx);
+    await waitForTransactionComplete(tx);
     return getComponentValue(clientComponents.Counter, singletonEntity);
   };
 
@@ -63,8 +68,9 @@ export function createSystemCalls(
 
   return {
     setWorld,
-    waitForTransaction,
+    waitForTransactionComplete,
     getComponentValue,
+    singletonEntity,
     increment,
   };
 }
