@@ -54,7 +54,7 @@ export class TitleBar extends GameObject {
 
   private async onAddressClicked() {
     if (playerData.isConnected) {
-      let msg = "address was copied";
+      let msg = "wallet address copied!";
       try {
         await utils.copyTextToClipboard(playerData.currentPlayer.address);
       } catch (e) {
