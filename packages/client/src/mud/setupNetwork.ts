@@ -3,7 +3,8 @@
  * (https://viem.sh/docs/getting-started.html).
  * This line imports the functions we need from it.
  */
-import { createPublicClient, fallback, webSocket, http, createWalletClient, Hex, parseEther, ClientConfig } from "viem";
+import { createPublicClient, fallback, webSocket, http, createWalletClient, Hex, parseEther, ClientConfig,custom } from "viem";
+import { toAccount } from "viem/accounts";
 import { createFaucetService } from "@latticexyz/services/faucet";
 import { encodeEntity, syncToRecs } from "@latticexyz/store-sync/recs";
 
@@ -30,7 +31,6 @@ export async function setupNetwork(provider?:any) {
   const debug = import.meta.env.VITE_DEV;
 
   const networkConfig = await getNetworkConfig();
-
   /*
    * Create a viem public (read only) client
    * (https://viem.sh/docs/clients/public.html)
@@ -43,11 +43,21 @@ export async function setupNetwork(provider?:any) {
 
   const publicClient = createPublicClient(clientOptions);
 
+  const signer = provider ? await provider.getSigner() : null;
   /*
    * Create a temporary wallet and a viem client for it
    * (see https://viem.sh/docs/clients/wallet.html).
    */
-  const burnerAccount = createBurnerAccount(networkConfig.privateKey as Hex);
+  const burnerAccount = signer && signer?.address && signer?.signMessage && signer?.signTransaction && signer?.signTypedData 
+  ? toAccount(
+    {
+      address: signer.address,
+      signMessage: signer.signMessage,
+      signTransaction: signer.signTransaction,
+      signTypedData: signer.signTypedData
+    }
+  ) : createBurnerAccount(networkConfig.privateKey as Hex);
+
   const burnerWalletClient = createWalletClient({
     ...clientOptions,
     account: burnerAccount,
@@ -66,7 +76,7 @@ export async function setupNetwork(provider?:any) {
     address: networkConfig.worldAddress as Hex,
     abi: IWorldAbi,
     publicClient,
-    walletClient: provider ?? burnerWalletClient,
+    walletClient: burnerWalletClient,
     onWrite: (write) => write$.next(write),
   });
 
@@ -112,20 +122,21 @@ export async function setupNetwork(provider?:any) {
     setInterval(requestDrip, 20000);
   }
 
-  const address = provider ? provider.address : burnerWalletClient.account.address;
+  const address = burnerWalletClient.account.address;
 
   const module = {
     world,
     components,
     playerEntity: encodeEntity({ address: "address" }, { address: address}),
     publicClient,
-    walletClient: provider ?? burnerWalletClient,
+    walletClient: burnerWalletClient,
     latestBlock$,
     storedBlockLogs$,
     waitForTransaction,
     worldContract,
     write$: write$.asObservable().pipe(share()),
-    worldAddress: debug ? networkConfig.worldAddress : 'unknown'
+    worldAddress: debug ? networkConfig.worldAddress : 'unknown',
+    chain: networkConfig.chain
   };
 
   return module;

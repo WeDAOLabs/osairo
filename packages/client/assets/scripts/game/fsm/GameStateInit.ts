@@ -5,8 +5,8 @@ import { dataModels } from "../../core/model/DataRegister";
 import { Login } from "../components/Login/Login";
 import { Main } from "../components/Main/Main";
 import { GameEventLoginComplete } from "../events/GameEventLoginComplete";
-import { mudEngine } from "../mud/MudEngine";
-import { particleEngine } from "../particle/ParticleEngine";
+import { mudEngine } from "../plugins/mud/MudEngine";
+import { particleEngine } from "../plugins/particle/ParticleEngine";
 import { GameFsmBase } from "./GameFmsBase";
 import { SceneState } from "./SceneState";
 import { ethers } from "../plugins/ethers/Ethers";
@@ -44,12 +44,6 @@ export class GameStateGameInit extends GameFsmBase {
 
   private async initGame() {
     this._initialized = true;
-    // if (!walletData.hasProvider) {
-    //   Toast.showMessage(
-    //     `there's no provider has been found, please install metamask first`
-    //   );
-    //   return Promise.resolve();
-    // }
 
     await this._loadDataModels();
 
@@ -58,8 +52,6 @@ export class GameStateGameInit extends GameFsmBase {
     await particleEngine.init();
 
     await mudEngine.init();
-
-    // await mudEngine.init(particleEngine.network);
   }
 
   private onLoginComplete() {
@@ -83,15 +75,12 @@ export class GameStateGameInit extends GameFsmBase {
     }
 
     if (mudEngine.mud) {
-      console.log("加载mud");
       this._engineLaunched.mud = true;
     }
-    if (particleEngine.particle) {
-      console.log("加载particle");
+    if (particleEngine.service) {
       this._engineLaunched.particle = true;
     }
     if (ethers) {
-      console.log("加载ethers");
       this._engineLaunched.ethers = true;
     }
   }

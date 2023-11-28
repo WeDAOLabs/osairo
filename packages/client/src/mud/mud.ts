@@ -1,4 +1,5 @@
 import { setup } from "./setup";
+import { custom, createWalletClient } from "viem";
 
 class MudEngine {
   private _env: any = {};
@@ -37,24 +38,20 @@ class MudEngine {
     this._env = import.meta.env;
   }
 
-  public async rebuild(wallet?: any) {
+  public async rebuild(provider?: any) {
     this._initialized = false;
 
-    const {
-      components,
-      systemCalls: { increment },
-      network,
-    } = await setup(wallet);
+    const { components, systemCalls, network } = await setup(provider);
 
     this._network = network;
     this._components = components;
-    this._systemCalls = { increment };
+    this._systemCalls = systemCalls;
 
     this._initialized = true;
   }
 
-  async init(wallet?: any) {
-    await this.rebuild(wallet);
+  async init(provider?: any) {
+    await this.rebuild(provider);
   }
 }
 
