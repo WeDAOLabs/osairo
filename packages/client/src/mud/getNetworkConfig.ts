@@ -89,6 +89,7 @@ export async function getNetworkConfig() {
    * on the URL (as initialBlockNumber) or in the worlds.json
    * file. If neither has it, it starts at the first block, zero.
    */
+
   const initialBlockNumber = chainParams?.initialBlockNumber
     ? Number(chainParams?.initialBlockNumber)
     : world?.blockNumber ?? 0n;

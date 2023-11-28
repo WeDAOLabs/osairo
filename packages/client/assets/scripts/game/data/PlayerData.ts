@@ -20,6 +20,7 @@ export class PlayerData extends DataModelBase {
   @OnEvent(GameEventLoginComplete.event)
   public setPlayer(player: PlayerDTO) {
     this._currentPlayer = player;
+    console.log(player);
   }
 }
 export const playerData: Readonly<PlayerData> = PlayerData.getInstance();

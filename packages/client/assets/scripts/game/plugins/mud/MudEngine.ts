@@ -1,11 +1,16 @@
-import { eventBus } from "../../core/event/EventBus";
-import { Singleton } from "../../core/game/Singleton";
-import { GameEventMudComponentUpdated } from "../events/GameEventMudComponentUpdated";
+import { eventBus } from "../../../core/event/EventBus";
+import { MUD_DEV_CHAIN } from "../../../core/event/constants";
+import { Singleton } from "../../../core/game/Singleton";
+import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
 
 class MudEngine extends Singleton {
   public get mud(): any {
     // @ts-ignore
     return globalThis.mudEngine;
+  }
+
+  public get isMudDevChain() {
+    return this.mud.network?.chain?.id === MUD_DEV_CHAIN;
   }
 
   public get systemCalls(): any {

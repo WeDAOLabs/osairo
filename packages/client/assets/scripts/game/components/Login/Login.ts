@@ -5,7 +5,7 @@ import { VERSION } from "../../const/Game";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { GameEventResourceLoading } from "../../events/GameEventResourceLoading";
-import { particleEngine } from "../../particle/ParticleEngine";
+import { particleEngine } from "../../plugins/particle/ParticleEngine";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
 import { eventBus } from "../../../core/event/EventBus";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
@@ -35,9 +35,13 @@ export class Login extends LayoutCom {
       VERSION.buildVersion.split(".")[1]
     }`;
 
-    const userInfo = await particleEngine.particle.isLoginAsync();
-    if (userInfo) {
-      this.onWalletConnected(userInfo);
+    try {
+      const userInfo = await particleEngine.service.isLoginAsync();
+      if (userInfo) {
+        this.onWalletConnected(userInfo);
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -58,7 +62,7 @@ export class Login extends LayoutCom {
 
   private async onLoginClicked() {
     try {
-      await particleEngine.particle.login();
+      await particleEngine.service.login();
     } catch (e: any) {
       Toast.showTip(`login failed: ${e.message}`);
       console.log("login failed", e);
