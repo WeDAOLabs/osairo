@@ -36,9 +36,16 @@ import worlds from "contracts/worlds.json";
  */
 
 import { supportedChains } from "./supportedChains";
+import { mudFoundry } from "@latticexyz/common/chains";
+import { MUDChain } from "@latticexyz/common/chains";
 
 export async function getNetworkConfig() {
-  const params = new URLSearchParams(window.location.search);
+  // const chainParams = new URLSearchParams(window.location.search);
+  const context = window as any;
+  const chainParams = context.chainParams || { chainId: 0 };
+
+  // @ts-ignore
+  const env = import.meta.env;
 
   /*
    * The chain ID is the first item available from this list:
@@ -48,13 +55,16 @@ export async function getNetworkConfig() {
    *    vite dev server was started or client was built
    * 4. The default, 31337 (anvil)
    */
-  const chainId = Number(params.get("chainId") || params.get("chainid") || import.meta.env.VITE_CHAIN_ID || 31337);
+  // TODO choose current chain id
+  const chainId = Number(
+    chainParams?.chainId || env.VITE_CHAIN_ID || mudFoundry.id
+  );
 
   /*
    * Find the chain (unless it isn't in the list of supported chains).
    */
   const chainIndex = supportedChains.findIndex((c) => c.id === chainId);
-  const chain = supportedChains[chainIndex];
+  const chain: MUDChain = supportedChains[chainIndex];
   if (!chain) {
     throw new Error(`Chain ${chainId} not found`);
   }
@@ -65,9 +75,11 @@ export async function getNetworkConfig() {
    * provide it as worldAddress in the query string.
    */
   const world = worlds[chain.id.toString()];
-  const worldAddress = params.get("worldAddress") || world?.address;
+  const worldAddress = chainParams?.worldAddress || world?.address;
   if (!worldAddress) {
-    throw new Error(`No world address found for chain ${chainId}. Did you run \`mud deploy\`?`);
+    throw new Error(
+      `No world address found for chain ${chainId}. Did you run \`mud deploy\`?`
+    );
   }
 
   /*
@@ -77,15 +89,16 @@ export async function getNetworkConfig() {
    * on the URL (as initialBlockNumber) or in the worlds.json
    * file. If neither has it, it starts at the first block, zero.
    */
-  const initialBlockNumber = params.has("initialBlockNumber")
-    ? Number(params.get("initialBlockNumber"))
+
+  const initialBlockNumber = chainParams?.initialBlockNumber
+    ? Number(chainParams?.initialBlockNumber)
     : world?.blockNumber ?? 0n;
 
   return {
     privateKey: getBurnerPrivateKey(),
     chainId,
     chain,
-    faucetServiceUrl: params.get("faucet") ?? chain.faucetUrl,
+    faucetServiceUrl: chainParams?.faucet ?? chain.faucetUrl,
     worldAddress,
     initialBlockNumber,
   };

@@ -3,7 +3,8 @@
  * (https://viem.sh/docs/getting-started.html).
  * This line imports the functions we need from it.
  */
-import { createPublicClient, fallback, webSocket, http, createWalletClient, Hex, parseEther, ClientConfig } from "viem";
+import { createPublicClient, fallback, webSocket, http, createWalletClient, Hex, parseEther, ClientConfig,custom } from "viem";
+import { toAccount } from "viem/accounts";
 import { createFaucetService } from "@latticexyz/services/faucet";
 import { encodeEntity, syncToRecs } from "@latticexyz/store-sync/recs";
 
@@ -13,7 +14,6 @@ import IWorldAbi from "contracts/out/IWorld.sol/IWorld.abi.json";
 import { createBurnerAccount, getContract, transportObserver, ContractWrite } from "@latticexyz/common";
 
 import { Subject, share } from "rxjs";
-
 /*
  * Import our MUD config, which includes strong types for
  * our tables and other config options. We use this to generate
@@ -26,9 +26,11 @@ import mudConfig from "contracts/mud.config";
 
 export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;
 
-export async function setupNetwork() {
-  const networkConfig = await getNetworkConfig();
+export async function setupNetwork(provider?:any) {
+  // @ts-ignore
+  const debug = import.meta.env.VITE_DEV;
 
+  const networkConfig = await getNetworkConfig();
   /*
    * Create a viem public (read only) client
    * (https://viem.sh/docs/clients/public.html)
@@ -41,11 +43,21 @@ export async function setupNetwork() {
 
   const publicClient = createPublicClient(clientOptions);
 
+  const signer = provider ? await provider.getSigner() : null;
   /*
    * Create a temporary wallet and a viem client for it
    * (see https://viem.sh/docs/clients/wallet.html).
    */
-  const burnerAccount = createBurnerAccount(networkConfig.privateKey as Hex);
+  const burnerAccount = signer && signer?.address && signer?.signMessage && signer?.signTransaction && signer?.signTypedData 
+  ? toAccount(
+    {
+      address: signer.address,
+      signMessage: signer.signMessage,
+      signTransaction: signer.signTransaction,
+      signTypedData: signer.signTypedData
+    }
+  ) : createBurnerAccount(networkConfig.privateKey as Hex);
+
   const burnerWalletClient = createWalletClient({
     ...clientOptions,
     account: burnerAccount,
@@ -60,7 +72,7 @@ export async function setupNetwork() {
   /*
    * Create an object for communicating with the deployed World.
    */
-  const worldContract = getContract({
+  const worldContract: any = getContract({
     address: networkConfig.worldAddress as Hex,
     abi: IWorldAbi,
     publicClient,
@@ -110,10 +122,12 @@ export async function setupNetwork() {
     setInterval(requestDrip, 20000);
   }
 
-  return {
+  const address = burnerWalletClient.account.address;
+
+  const module = {
     world,
     components,
-    playerEntity: encodeEntity({ address: "address" }, { address: burnerWalletClient.account.address }),
+    playerEntity: encodeEntity({ address: "address" }, { address: address}),
     publicClient,
     walletClient: burnerWalletClient,
     latestBlock$,
@@ -121,5 +135,9 @@ export async function setupNetwork() {
     waitForTransaction,
     worldContract,
     write$: write$.asObservable().pipe(share()),
+    worldAddress: debug ? networkConfig.worldAddress : 'unknown',
+    chain: networkConfig.chain
   };
+
+  return module;
 }
