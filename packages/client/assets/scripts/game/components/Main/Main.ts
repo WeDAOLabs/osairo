@@ -6,6 +6,7 @@ import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
 import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
 import { TitleBar } from "../TitleBar/TitleBar";
 import { LandNFTMinter } from "../LandNFTMinter/LandNFTMinter";
+import { Toast } from "../Toast/Toast";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -36,8 +37,11 @@ export class Main extends LayoutCom {
   }
 
   private async onExploreClicked() {
-    await mudEngine.systemCalls.increment();
-    console.log("begin seek treasure");
+    try {
+      await mudEngine.systemCalls.increment();
+    } catch (e) {
+      Toast.showTip(`[error: cancel transaction]`);
+    }
   }
 
   @OnEvent(GameEventMudComponentUpdated.event)
