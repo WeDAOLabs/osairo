@@ -4,6 +4,7 @@ import { registerLayout } from "../../../core/game/GameUI";
 import { mudEngine } from "../../plugins/mud/MudEngine";
 import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
 import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
+import { TitleBar } from "../TitleBar/TitleBar";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -20,6 +21,13 @@ export class Main extends LayoutCom {
 
   @property(Label)
   private goldCountLabel: Label = null!;
+
+  protected async load() {
+    const titleBar = await TitleBar.createAsync();
+    if (titleBar) {
+      this.node.addChild(titleBar.node);
+    }
+  }
 
   private async onExploreClicked() {
     await mudEngine.systemCalls.increment();

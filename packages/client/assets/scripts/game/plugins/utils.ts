@@ -1,8 +1,13 @@
 import { NATIVE } from "cc/env";
+import { REGEX_ADDRESS } from "../const/Regex";
 
 export class utils {
   static stringIsEmpty(str: string | null | undefined) {
     return !str || str === "";
+  }
+
+  static isAddress(address: string) {
+    return REGEX_ADDRESS.test(address);
   }
 
   static async copyTextToClipboard(text: string): Promise<void> {

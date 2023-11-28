@@ -17,6 +17,10 @@ export class PlayerData extends DataModelBase {
     return this._currentPlayer!;
   }
 
+  public get isConnected() {
+    return this._currentPlayer !== null;
+  }
+
   @OnEvent(GameEventLoginComplete.event)
   public setPlayer(player: PlayerDTO) {
     this._currentPlayer = player;

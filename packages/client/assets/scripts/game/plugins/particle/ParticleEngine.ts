@@ -1,5 +1,6 @@
 import { eventBus } from "../../../core/event/EventBus";
 import { Singleton } from "../../../core/game/Singleton";
+import { Toast } from "../../components/Toast/Toast";
 import { PlayerDTO } from "../../data/dto/PlayerDTO";
 import { GameEventWalletChainChanged } from "../../events/GameEventWalletChainChanged";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
@@ -65,6 +66,15 @@ export class ParticleEngine extends Singleton {
     this.registerEvents();
 
     console.log(`particle engine init, version: ${this.service.version}`);
+  }
+
+  public async login() {
+    try {
+      await particleEngine.service.login();
+    } catch (e: any) {
+      Toast.showTip(`login failed: ${e.message}`);
+      console.log("login failed", e);
+    }
   }
 }
 

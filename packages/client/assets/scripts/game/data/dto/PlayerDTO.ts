@@ -92,4 +92,8 @@ export class PlayerDTO extends BaseDTO {
   get address(): string {
     return this?.wallet?.address;
   }
+
+  get shortAddress(): string {
+    return this?.wallet?.shortAddress;
+  }
 }
