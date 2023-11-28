@@ -4,6 +4,9 @@ import { registerLayout } from "../../../core/game/GameUI";
 import { mudEngine } from "../../plugins/mud/MudEngine";
 import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
 import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponentUpdated";
+import { TitleBar } from "../TitleBar/TitleBar";
+import { LandNFTMinter } from "../LandNFTMinter/LandNFTMinter";
+import { Toast } from "../Toast/Toast";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -21,9 +24,24 @@ export class Main extends LayoutCom {
   @property(Label)
   private goldCountLabel: Label = null!;
 
+  protected async load() {
+    const titleBar = await TitleBar.createAsync();
+    if (titleBar) {
+      this.node.addChild(titleBar.node);
+    }
+
+    const landNftMinter = await LandNFTMinter.createAsync();
+    if (landNftMinter) {
+      this.node.addChild(landNftMinter.node);
+    }
+  }
+
   private async onExploreClicked() {
-    await mudEngine.systemCalls.increment();
-    console.log("begin seek treasure");
+    try {
+      await mudEngine.systemCalls.increment();
+    } catch (e) {
+      Toast.showTip(`[error: cancel transaction]`);
+    }
   }
 
   @OnEvent(GameEventMudComponentUpdated.event)

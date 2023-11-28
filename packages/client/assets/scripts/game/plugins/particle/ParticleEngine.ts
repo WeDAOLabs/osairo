@@ -1,5 +1,7 @@
 import { eventBus } from "../../../core/event/EventBus";
 import { Singleton } from "../../../core/game/Singleton";
+import { Toast } from "../../components/Toast/Toast";
+import { PlayerDTO } from "../../data/dto/PlayerDTO";
 import { GameEventWalletChainChanged } from "../../events/GameEventWalletChainChanged";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
 import { GameEventWalletDisconnected } from "../../events/GameEventWalletDisconnected";
@@ -41,7 +43,10 @@ export class ParticleEngine extends Singleton {
 
     // listen connect event
     provider.auth.on("connect", (userInfo: any) => {
-      eventBus.emit(GameEventWalletConnected.event, userInfo);
+      eventBus.emit(
+        GameEventWalletConnected.event,
+        PlayerDTO.fillWith(userInfo)
+      );
     });
 
     // listen disconnect event
@@ -61,6 +66,15 @@ export class ParticleEngine extends Singleton {
     this.registerEvents();
 
     console.log(`particle engine init, version: ${this.service.version}`);
+  }
+
+  public async login() {
+    try {
+      await particleEngine.service.login();
+    } catch (e: any) {
+      Toast.showTip(`login failed: ${e.message}`);
+      console.log("login failed", e);
+    }
   }
 }
 

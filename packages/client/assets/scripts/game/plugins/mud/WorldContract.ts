@@ -36,18 +36,6 @@ export class WorldContract extends Singleton {
     if (!mudEngine.isMudDevChain) {
       const world = await this.getContract();
       mudEngine.systemCalls.setWorld(world);
-      // this.scheduleOnce(async () => {
-      //   try {
-      //     const tx = await world.increment();
-      //     console.log("tx", tx);
-      //     console.log(
-      //       "recipt",
-      //       await mudEngine.systemCalls.waitForTransaction(tx)
-      //     );
-      //   } catch (e) {
-      //     console.log("!!!!!!!!!", e);
-      //   }
-      // }, 3);
     }
   }
 }

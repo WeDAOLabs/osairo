@@ -38,7 +38,7 @@ export class Login extends LayoutCom {
     try {
       const userInfo = await particleEngine.service.isLoginAsync();
       if (userInfo) {
-        this.onWalletConnected(userInfo);
+        this.onWalletConnected(PlayerDTO.fillWith(userInfo));
       }
     } catch (e) {
       console.error(e);
@@ -56,17 +56,12 @@ export class Login extends LayoutCom {
   }
 
   @OnEvent(GameEventWalletConnected.event)
-  private onWalletConnected(userInfo: any) {
-    eventBus.emit(GameEventLoginComplete.event, PlayerDTO.fillWith(userInfo));
+  private onWalletConnected(player: PlayerDTO) {
+    eventBus.emit(GameEventLoginComplete.event, player);
   }
 
   private async onLoginClicked() {
-    try {
-      await particleEngine.service.login();
-    } catch (e: any) {
-      Toast.showTip(`login failed: ${e.message}`);
-      console.log("login failed", e);
-    }
+    await particleEngine.login();
   }
 }
 
