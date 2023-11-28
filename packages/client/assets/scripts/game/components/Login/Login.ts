@@ -56,8 +56,8 @@ export class Login extends LayoutCom {
   }
 
   @OnEvent(GameEventWalletConnected.event)
-  private onWalletConnected(userInfo: any) {
-    eventBus.emit(GameEventLoginComplete.event, PlayerDTO.fillWith(userInfo));
+  private onWalletConnected(player: PlayerDTO) {
+    eventBus.emit(GameEventLoginComplete.event, player);
   }
 
   private async onLoginClicked() {

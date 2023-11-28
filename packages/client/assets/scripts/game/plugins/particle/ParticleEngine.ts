@@ -1,5 +1,6 @@
 import { eventBus } from "../../../core/event/EventBus";
 import { Singleton } from "../../../core/game/Singleton";
+import { PlayerDTO } from "../../data/dto/PlayerDTO";
 import { GameEventWalletChainChanged } from "../../events/GameEventWalletChainChanged";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
 import { GameEventWalletDisconnected } from "../../events/GameEventWalletDisconnected";
@@ -41,7 +42,10 @@ export class ParticleEngine extends Singleton {
 
     // listen connect event
     provider.auth.on("connect", (userInfo: any) => {
-      eventBus.emit(GameEventWalletConnected.event, userInfo);
+      eventBus.emit(
+        GameEventWalletConnected.event,
+        PlayerDTO.fillWith(userInfo)
+      );
     });
 
     // listen disconnect event

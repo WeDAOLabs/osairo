@@ -1,4 +1,5 @@
 import { BaseDTO } from "../../../core/model/BaseDTO";
+import { utils } from "../../plugins/utils";
 
 /**
  * 
@@ -17,5 +18,20 @@ export class WalletDTO extends BaseDTO {
 
   public get address() {
     return this.public_address;
+  }
+
+  public get shortAddress(): string {
+    if (utils.stringIsEmpty(this.address)) {
+      return "";
+    }
+
+    const length = this.address.length;
+    if (length <= 10) {
+      return this.address;
+    }
+    return `${this.address.substring(0, 6)}...${this.address.substring(
+      length - 4,
+      length
+    )}`;
   }
 }

@@ -1,6 +1,10 @@
 import { NATIVE } from "cc/env";
 
 export class utils {
+  static stringIsEmpty(str: string | null | undefined) {
+    return !str || str === "";
+  }
+
   static async copyTextToClipboard(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!NATIVE) {
