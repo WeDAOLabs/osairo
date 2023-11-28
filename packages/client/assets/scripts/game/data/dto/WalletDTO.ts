@@ -10,4 +10,12 @@ export class WalletDTO extends BaseDTO {
   uuid: string | null = null;
   chain_name: string = "";
   public_address: string = "";
+
+  public isEvm(): boolean {
+    return this.chain_name === "evm_chain";
+  }
+
+  public get address() {
+    return this.public_address;
+  }
 }
