@@ -225,7 +225,7 @@ deploys
 /packages/client/assets/scripts/mud
 /packages/client/assets/scripts/mud-dev
 /packages/client/assets/scripts/particle
-/packages/client/assets/ethers
+/packages/client/assets/scripts/ethers
 
 /packages/client/plugins/mud
 
