@@ -7,7 +7,7 @@
     "polyfills": {
       "asyncFunctions": true
     },
-    "name": "Osairo",
+    "name": "osairo",
     "outputName": "web-mobile",
     "buildPath": "project://build",
     "mainBundleCompressionType": "merge_dep",
@@ -21,9 +21,9 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2023-11-24 14:54:39 build success in 93215 ms!",
+        "message": "2023-11-28 17:39:19 build success in 75521 ms!",
         "options": {
-          "name": "client",
+          "name": "osairo",
           "server": "",
           "platform": "web-mobile",
           "buildPath": "project://build",
@@ -57,7 +57,7 @@
           "buildMode": "normal",
           "logDest": "project://temp/builder/log/web-mobile11-20-2023 20-22.log"
         },
-        "time": "11-24-2023 14:53:06",
+        "time": "11-28-2023 17:38:04",
         "dirty": false
       },
       "buildBundle": {
