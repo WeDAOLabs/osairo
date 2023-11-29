@@ -7,6 +7,7 @@ import { GameEventMudComponentUpdated } from "../../events/GameEventMudComponent
 import { TitleBar } from "../TitleBar/TitleBar";
 import { LandNFTMinter } from "../LandNFTMinter/LandNFTMinter";
 import { Toast } from "../Toast/Toast";
+import { Lands } from "../Lands/Lands";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -34,6 +35,8 @@ export class Main extends LayoutCom {
     if (landNftMinter) {
       this.node.addChild(landNftMinter.node);
     }
+
+    Lands.open();
   }
 
   private async onExploreClicked() {

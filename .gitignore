@@ -229,7 +229,7 @@ deploys
 
 /packages/client/plugins/mud
 
-/packages/client/assets/ethers/scripts/ethers.meta
-/packages/client/assets/ethers/scripts/mud.meta
-/packages/client/assets/ethers/scripts/mud-dev.meta
-/packages/client/assets/ethers/scripts/particle.meta
+/packages/client/assets/scripts/ethers.meta
+/packages/client/assets/scripts/mud.meta
+/packages/client/assets/scripts/mud-dev.meta
+/packages/client/assets/scripts/particle.meta

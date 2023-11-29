@@ -10,7 +10,6 @@ import { GameEventWalletConnected } from "../../events/GameEventWalletConnected"
 import { eventBus } from "../../../core/event/EventBus";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
 import { PlayerDTO } from "../../data/dto/PlayerDTO";
-import { Toast } from "../Toast/Toast";
 const { menu, ccclass, property } = _decorator;
 
 @ccclass("Login")
