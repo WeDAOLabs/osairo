@@ -3,7 +3,6 @@ import { Singleton } from "../../../core/game/Singleton";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
 import { mudEngine } from "./MudEngine";
 import { ethers, ethersIns } from "../ethers/Ethers";
-import { particleEngine } from "../particle/ParticleEngine";
 
 export class WorldContract extends Singleton {
   private _contract: any = null;

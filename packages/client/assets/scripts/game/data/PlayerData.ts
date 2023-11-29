@@ -1,4 +1,3 @@
-import { eventBus } from "../../core/event/EventBus";
 import { OnEvent } from "../../core/event/decorators/OnEventDecorator";
 import { DataModelBase } from "../../core/model/DataModelBase";
 import { registerDataModel } from "../../core/model/DataRegister";
