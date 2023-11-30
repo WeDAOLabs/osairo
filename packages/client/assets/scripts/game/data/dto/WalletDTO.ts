@@ -12,7 +12,7 @@ export class WalletDTO extends BaseDTO {
   chain_name: string = "";
   public_address: string = "";
 
-  public isEvm(): boolean {
+  public get isEvm(): boolean {
     return this.chain_name === "evm_chain";
   }
 
@@ -24,7 +24,6 @@ export class WalletDTO extends BaseDTO {
     if (utils.stringIsEmpty(this.address)) {
       return "";
     }
-    console.log("哈哈哈", this);
 
     const length = this.address.length;
     if (length <= 10) {
