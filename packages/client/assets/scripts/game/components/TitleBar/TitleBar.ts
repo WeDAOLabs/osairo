@@ -49,7 +49,7 @@ export class TitleBar extends GameObject {
   }
 
   private setPlayerAddress(player: PlayerDTO) {
-    this.address = player.wallet.shortAddress;
+    this.address = player.shortAddress;
   }
 
   private async onAddressClicked() {
