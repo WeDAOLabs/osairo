@@ -21,7 +21,7 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2023-11-28 19:17:25 build success in 63855 ms!",
+        "message": "2023-11-30 15:20:06 build success in 155395 ms!",
         "options": {
           "name": "osairo",
           "server": "",
@@ -57,31 +57,8 @@
           "buildMode": "normal",
           "logDest": "project://temp/builder/log/web-mobile11-20-2023 20-22.log"
         },
-        "time": "11-28-2023 19:16:21",
+        "time": "11-30-2023 15:17:31",
         "dirty": false
-      },
-      "buildBundle": {
-        "id": "buildBundle",
-        "progress": 1,
-        "state": "success",
-        "message": "2023-11-28 17:17:05Build Bundle success in 29767 ms!",
-        "options": {
-          "dest": "project://build/build-bundle",
-          "buildTaskIds": [
-            "1700482963675"
-          ],
-          "taskName": "build bundle db://assets/resources",
-          "bundleConfigs": [
-            {
-              "root": "db://assets/resources",
-              "name": "resources",
-              "output": true
-            }
-          ],
-          "packages": {}
-        },
-        "time": "",
-        "type": "bundle"
       }
     }
   }
