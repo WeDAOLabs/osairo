@@ -2,7 +2,6 @@ import { Sprite, Label, _decorator, Mask, UITransform, math, Node } from "cc";
 import { GameObject } from "../../../core/game/GameObject";
 import { PrefabsAsync } from "../../enum/Prefabs";
 import { ViewUtil } from "../../../core/utils/ViewUtil";
-import { Toast } from "../Toast/Toast";
 import { LandTileStatus, LandTileType } from "../../const/Enums";
 import ImageUtil from "../../../core/utils/ImageUtil";
 import { Textures } from "../../enum/Textures";
@@ -65,7 +64,7 @@ export class LandNFTTile extends GameObject {
     this._status = status;
     this.tileSp.node.active = !this.isEmpty;
 
-    this.tipLabel.string = !this.tileSp.node.active
+    this.tipLabel.string = this.isEmpty
       ? `(${this.coordinate.x},${this.coordinate.y})`
       : "";
   }
@@ -120,13 +119,14 @@ export class LandNFTTile extends GameObject {
     ImageUtil.setTexture(
       this.tileSp,
       Textures.UI_TILE,
-      `osairo_${this._tileType}`
+      `tile_${this._tileType}`
     );
   }
 
   private onClick() {
-    Toast.showTip("It is a test!");
-
+    if (!this.isEmpty) {
+      return;
+    }
     this.tileType = Math.floor(Math.random() * 3);
     this.status = LandTileStatus.Landing;
   }
