@@ -4,6 +4,13 @@ import { registerLayout } from "../../../core/game/GameUI";
 import { LandNFTTile } from "../LandNFTTile/LandNFTTile";
 const { menu, ccclass } = _decorator;
 
+const LandMapConfig = {
+  size: {
+    width: 1000,
+    height: 800,
+  },
+};
+
 /*
  * @author: enixlee
  * @description:
