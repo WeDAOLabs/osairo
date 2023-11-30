@@ -1,4 +1,4 @@
-import { _decorator } from "cc";
+import { _decorator, math } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { LandNFTTile } from "../LandNFTTile/LandNFTTile";
@@ -17,6 +17,13 @@ export class Lands extends LayoutCom {
   }
 
   protected async load() {
+    const tile = await LandNFTTile.createAsync();
+    if (tile) {
+      this.node.addChild(tile.node);
+    }
+  }
+
+  private async addTile(posX: number, posY: number) {
     const tile = await LandNFTTile.createAsync();
     if (tile) {
       this.node.addChild(tile.node);
