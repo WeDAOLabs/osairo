@@ -9,7 +9,7 @@ import { PlayerDTO } from "./dto/PlayerDTO";
  * @description:
  * @date: 2023/11/23 11:54:36
  */
-export class PlayerData extends DataModelBase {
+export class PlayerModel extends DataModelBase {
   private _currentPlayer: PlayerDTO | null = null;
 
   public get currentPlayer(): PlayerDTO {
@@ -25,6 +25,6 @@ export class PlayerData extends DataModelBase {
     this._currentPlayer = player;
   }
 }
-export const playerData: Readonly<PlayerData> = PlayerData.getInstance();
+export const playerModel: Readonly<PlayerModel> = PlayerModel.getInstance();
 
-registerDataModel(playerData);
+registerDataModel(playerModel);

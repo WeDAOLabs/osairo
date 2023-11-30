@@ -2,7 +2,7 @@ import { Label, _decorator } from "cc";
 import { GameObject } from "../../../core/game/GameObject";
 import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
-import { playerData } from "../../data/PlayerData";
+import { playerModel } from "../../data/PlayerModel";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
 import { PlayerDTO } from "../../data/dto/PlayerDTO";
 import { PrefabsAsync } from "../../enum/Prefabs";
@@ -40,7 +40,7 @@ export class TitleBar extends GameObject {
   }
 
   load() {
-    this.setPlayerAddress(playerData.currentPlayer);
+    this.setPlayerAddress(playerModel.currentPlayer);
   }
 
   @OnEvent(GameEventWalletConnected.event)
@@ -53,10 +53,10 @@ export class TitleBar extends GameObject {
   }
 
   private async onAddressClicked() {
-    if (playerData.isConnected) {
+    if (playerModel.isConnected) {
       let msg = "wallet address copied!";
       try {
-        await utils.copyTextToClipboard(playerData.currentPlayer.address);
+        await utils.copyTextToClipboard(playerModel.currentPlayer.address);
       } catch (e) {
         msg = "copy failed";
         console.error(e);
