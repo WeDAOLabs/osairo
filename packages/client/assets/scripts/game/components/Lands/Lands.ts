@@ -5,7 +5,7 @@ import { LandNFTTile, TileConfig } from "../LandNFTTile/LandNFTTile";
 const { menu, ccclass } = _decorator;
 
 const LandMapConfig = {
-  size: math.size(1100, 900),
+  size: math.size(1100, 860),
 };
 
 interface TileLayout {
@@ -56,17 +56,28 @@ export class Lands extends LayoutCom {
   ): TileLayout[] {
     const tileLayouts: TileLayout[] = [];
 
-    const tilesPerRow = Math.floor(mapSize.width / tileSize.width);
+    const tilesPerRow = Math.floor(mapSize.height / tileSize.height);
+    const tilesPerColumn = Math.floor(mapSize.width / tileSize.width);
 
-    const tilesPerColumn = Math.floor(mapSize.height / tileSize.height);
+    const totalTileWidth = tilesPerRow * tileSize.width;
+    const totalTileHeight = tilesPerColumn * tileSize.height;
 
-    const offsetX = (mapSize.width - tilesPerRow * tileSize.width) / 2;
-    const offsetY = (mapSize.height - tilesPerColumn * tileSize.height) / 2;
+    const offsetX = (mapSize.width - totalTileWidth) / 2;
 
-    for (let row = 0; row < tilesPerColumn; row++) {
-      for (let col = 0; col < tilesPerRow; col++) {
-        const x = offsetX + col * tileSize.width;
-        const y = offsetY + row * tileSize.height;
+    for (let row = 0; row < tilesPerRow; row++) {
+      for (let col = 0; col < tilesPerColumn; col++) {
+        const x =
+          col * tileSize.width +
+          tileSize.width / 2 -
+          offsetX -
+          totalTileWidth / 2;
+        // const y =
+        //   row * tileSize.height +
+        //   tileSize.height / 2 -
+        //   (row + 1) * tileSize.height +
+        //   (totalTileHeight / 2 - tileSize.height / 2 - row * tileSize.height);
+        const y = totalTileHeight / 2 - (row + 1) * tileSize.height;
+
         tileLayouts.push({ x, y });
       }
     }
