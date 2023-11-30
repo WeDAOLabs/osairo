@@ -3,3 +3,9 @@ export enum LandTileStatus {
   Landing,
   Mining,
 }
+
+export enum LandTileType {
+  Oasis,
+  Waterfall,
+  Desert,
+}
