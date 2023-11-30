@@ -85,7 +85,11 @@ export class PlayerDTO extends BaseDTO {
   redirect_type: string = "";
 
   get wallet(): WalletDTO {
-    const evmWallet: WalletDTO = this.wallets.find((wallet) => wallet.isEvm)!;
+    const evmWallet: WalletDTO = this.wallets.find((wallet) => {
+      console.log("why", wallet.isEvm, wallet);
+      return wallet.isEvm;
+    })!;
+    console.log("is this", evmWallet);
     return evmWallet;
   }
 
