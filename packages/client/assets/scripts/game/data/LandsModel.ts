@@ -1,7 +1,6 @@
 import { OnEvent } from "../../core/event/decorators/OnEventDecorator";
 import { DataModelBase } from "../../core/model/DataModelBase";
 import { registerDataModel } from "../../core/model/DataRegister";
-import { Toast } from "../components/Toast/Toast";
 import { LandTileType } from "../const/Enums";
 import { GameEventLandNFTMinted } from "../events/GameEventLandNFTMinted";
 
@@ -20,11 +19,10 @@ export class LandsModel extends DataModelBase {
 
   public landing(): LandTileType | null {
     if (!this._lands || this._lands.length === 0) {
-      Toast.showTip("There is none Land NFT");
       return null;
     }
 
-    const tile = this._lands.shift()!;
+    const tile = this._lands.pop()!;
     return tile;
   }
 }

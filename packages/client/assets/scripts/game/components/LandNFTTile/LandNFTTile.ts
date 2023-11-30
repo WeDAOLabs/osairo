@@ -138,7 +138,8 @@ export class LandNFTTile extends GameObject {
     }
 
     const landNft = landsModel.landing();
-    if (!landNft) {
+    if (landNft === null) {
+      Toast.showTip("There is none Land NFT");
       return;
     }
 
