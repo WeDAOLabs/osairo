@@ -49,6 +49,9 @@ export class TitleBar extends GameObject {
   }
 
   private setPlayerAddress(player: PlayerDTO) {
+    console.log("player", player);
+    console.log("player.address", player.wallet);
+    console.log("player.short", player.shortAddress);
     this.address = player.shortAddress;
   }
 
