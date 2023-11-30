@@ -1,15 +1,17 @@
 import { _decorator, math } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
-import { LandNFTTile } from "../LandNFTTile/LandNFTTile";
+import { LandNFTTile, TileConfig } from "../LandNFTTile/LandNFTTile";
 const { menu, ccclass } = _decorator;
 
 const LandMapConfig = {
-  size: {
-    width: 1000,
-    height: 800,
-  },
+  size: math.size(1100, 900),
 };
+
+interface TileLayout {
+  x: number;
+  y: number;
+}
 
 /*
  * @author: enixlee
@@ -24,17 +26,52 @@ export class Lands extends LayoutCom {
   }
 
   protected async load() {
+    await this.addTiles();
+  }
+
+  private async addTiles() {
+    const tiles: TileLayout[] = this.calculateTileLayout(
+      LandMapConfig.size,
+      TileConfig.size
+    );
+
+    for (let i = 0; i < tiles.length; i++) {
+      const pos = tiles[i];
+      await this.addTile(pos.x, pos.y, i);
+    }
+  }
+
+  private async addTile(posX: number, posY: number, index: number) {
     const tile = await LandNFTTile.createAsync();
     if (tile) {
+      tile.tip = `${index}`;
+      tile.node.position = math.v3(posX, posY);
       this.node.addChild(tile.node);
     }
   }
 
-  private async addTile(posX: number, posY: number) {
-    const tile = await LandNFTTile.createAsync();
-    if (tile) {
-      this.node.addChild(tile.node);
+  private calculateTileLayout(
+    mapSize: math.Size,
+    tileSize: math.Size
+  ): TileLayout[] {
+    const tileLayouts: TileLayout[] = [];
+
+    const tilesPerRow = Math.floor(mapSize.width / tileSize.width);
+
+    const tilesPerColumn = Math.floor(mapSize.height / tileSize.height);
+
+    const offsetX = (mapSize.width - tilesPerRow * tileSize.width) / 2;
+    const offsetY = (mapSize.height - tilesPerColumn * tileSize.height) / 2;
+
+    for (let row = 0; row < tilesPerColumn; row++) {
+      for (let col = 0; col < tilesPerRow; col++) {
+        const x = offsetX + col * tileSize.width;
+        const y = offsetY + row * tileSize.height;
+        tileLayouts.push({ x, y });
+      }
     }
+
+    return tileLayouts;
   }
 }
 

@@ -1,4 +1,4 @@
-import { Label, _decorator } from "cc";
+import { Label, Node, _decorator } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { mudEngine } from "../../plugins/mud/MudEngine";
@@ -25,6 +25,9 @@ export class Main extends LayoutCom {
   @property(Label)
   private goldCountLabel: Label = null!;
 
+  @property(Node)
+  private landNftMinterNode: Node = null!;
+
   protected async load() {
     const titleBar = await TitleBar.createAsync();
     if (titleBar) {
@@ -33,7 +36,7 @@ export class Main extends LayoutCom {
 
     const landNftMinter = await LandNFTMinter.createAsync();
     if (landNftMinter) {
-      this.node.addChild(landNftMinter.node);
+      this.landNftMinterNode.addChild(landNftMinter.node);
     }
 
     Lands.open();

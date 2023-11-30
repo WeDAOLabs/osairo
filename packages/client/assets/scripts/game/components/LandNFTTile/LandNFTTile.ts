@@ -6,10 +6,7 @@ import { Toast } from "../Toast/Toast";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
-  size: {
-    width: 100,
-    height: 80,
-  },
+  size: math.size(100, 80),
 };
 
 /*
@@ -43,6 +40,10 @@ export class LandNFTTile extends GameObject {
 
   @property(Label)
   private tipLabel: Label = null!;
+
+  public set tip(tip: string) {
+    this.tipLabel.string = tip;
+  }
 
   load() {
     this.buildTile();
