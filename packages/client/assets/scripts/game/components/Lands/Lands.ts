@@ -2,15 +2,22 @@ import { _decorator, math } from "cc";
 import { LayoutCom } from "../../layout/LayoutCom";
 import { registerLayout } from "../../../core/game/GameUI";
 import { LandNFTTile, TileConfig } from "../LandNFTTile/LandNFTTile";
+import { LandTileStatus } from "../../const/Enums";
 const { menu, ccclass } = _decorator;
 
 const LandMapConfig = {
-  size: math.size(1100, 860),
+  size: math.size(1100, 660),
 };
 
 interface TileLayout {
-  x: number;
-  y: number;
+  pos: {
+    x: number;
+    y: number;
+  };
+  coordinate: {
+    x: number;
+    y: number;
+  };
 }
 
 /*
@@ -36,16 +43,16 @@ export class Lands extends LayoutCom {
     );
 
     for (let i = 0; i < tiles.length; i++) {
-      const pos = tiles[i];
-      await this.addTile(pos.x, pos.y, i);
+      await this.addTile(tiles[i]);
     }
   }
 
-  private async addTile(posX: number, posY: number, index: number) {
+  private async addTile(layout: TileLayout) {
     const tile = await LandNFTTile.createAsync();
     if (tile) {
-      tile.tip = `${index}`;
-      tile.node.position = math.v3(posX, posY);
+      tile.coordinate = math.v3(layout.coordinate.x, layout.coordinate.y);
+      tile.node.position = math.v3(layout.pos.x, layout.pos.y);
+      tile.status = LandTileStatus.Empty;
       this.node.addChild(tile.node);
     }
   }
@@ -59,8 +66,8 @@ export class Lands extends LayoutCom {
     const tilesPerRow = Math.floor(mapSize.height / tileSize.height);
     const tilesPerColumn = Math.floor(mapSize.width / tileSize.width);
 
-    const totalTileWidth = tilesPerRow * tileSize.width;
-    const totalTileHeight = tilesPerColumn * tileSize.height;
+    const totalTileWidth = tilesPerColumn * tileSize.width;
+    const totalTileHeight = tilesPerRow * tileSize.height;
 
     const offsetX = (mapSize.width - totalTileWidth) / 2;
 
@@ -71,14 +78,16 @@ export class Lands extends LayoutCom {
           tileSize.width / 2 -
           offsetX -
           totalTileWidth / 2;
-        // const y =
-        //   row * tileSize.height +
-        //   tileSize.height / 2 -
-        //   (row + 1) * tileSize.height +
-        //   (totalTileHeight / 2 - tileSize.height / 2 - row * tileSize.height);
-        const y = totalTileHeight / 2 - (row + 1) * tileSize.height;
 
-        tileLayouts.push({ x, y });
+        const y = totalTileHeight / 2 - (row + 1 / 2) * tileSize.height;
+
+        tileLayouts.push({
+          pos: { x, y },
+          coordinate: {
+            x: row,
+            y: col,
+          },
+        });
       }
     }
 

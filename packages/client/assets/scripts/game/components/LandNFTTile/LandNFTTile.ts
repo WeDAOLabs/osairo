@@ -3,6 +3,7 @@ import { GameObject } from "../../../core/game/GameObject";
 import { PrefabsAsync } from "../../enum/Prefabs";
 import { ViewUtil } from "../../../core/utils/ViewUtil";
 import { Toast } from "../Toast/Toast";
+import { LandTileStatus } from "../../const/Enums";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
@@ -41,8 +42,31 @@ export class LandNFTTile extends GameObject {
   @property(Label)
   private tipLabel: Label = null!;
 
-  public set tip(tip: string) {
-    this.tipLabel.string = tip;
+  private _coordinate: math.Vec3 = math.v3(0, 0);
+
+  private _status: LandTileStatus = LandTileStatus.Empty;
+
+  public set coordinate(coordinate: math.Vec3) {
+    this._coordinate = coordinate;
+  }
+
+  public get coordinate(): math.Vec3 {
+    return this._coordinate;
+  }
+
+  public set status(status: LandTileStatus) {
+    this._status = status;
+    this.tipLabel.string = this.isEmpty
+      ? `(${this.coordinate.x},${this.coordinate.y})`
+      : "";
+  }
+
+  public get status(): LandTileStatus {
+    return this.status;
+  }
+
+  public get isEmpty() {
+    return this._status === LandTileStatus.Empty;
   }
 
   load() {

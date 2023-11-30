@@ -498,8 +498,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 131.18849183803857,
-      "height": 50.4
+      "width": 131.17414251039713,
+      "height": 50.400000000000006
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -537,7 +537,7 @@
     "_string": "explore",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 50.61111111111111,
+    "_actualFontSize": 59.27777777777778,
     "_fontSize": 40,
     "_fontFamily": "Arial",
     "_lineHeight": 40,
