@@ -65,7 +65,6 @@
         "enable": false,
         "params": {}
       }
-    ],
-    "__version__": "3.0.7"
+    ]
   }
 }

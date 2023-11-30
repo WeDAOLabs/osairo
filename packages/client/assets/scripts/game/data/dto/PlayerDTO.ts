@@ -83,4 +83,17 @@ export class PlayerDTO extends BaseDTO {
   @PropertyType(WalletDTO)
   wallets: WalletDTO[] = [];
   redirect_type: string = "";
+
+  get wallet(): WalletDTO {
+    const evmWallet: WalletDTO = this.wallets.find((wallet) => wallet.isEvm)!;
+    return evmWallet;
+  }
+
+  get address(): string {
+    return this?.wallet?.address;
+  }
+
+  get shortAddress(): string {
+    return this.wallet?.shortAddress;
+  }
 }

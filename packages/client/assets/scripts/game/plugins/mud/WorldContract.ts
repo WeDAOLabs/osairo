@@ -3,7 +3,6 @@ import { Singleton } from "../../../core/game/Singleton";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
 import { mudEngine } from "./MudEngine";
 import { ethers, ethersIns } from "../ethers/Ethers";
-import { particleEngine } from "../particle/ParticleEngine";
 
 export class WorldContract extends Singleton {
   private _contract: any = null;
@@ -36,18 +35,6 @@ export class WorldContract extends Singleton {
     if (!mudEngine.isMudDevChain) {
       const world = await this.getContract();
       mudEngine.systemCalls.setWorld(world);
-      // this.scheduleOnce(async () => {
-      //   try {
-      //     const tx = await world.increment();
-      //     console.log("tx", tx);
-      //     console.log(
-      //       "recipt",
-      //       await mudEngine.systemCalls.waitForTransaction(tx)
-      //     );
-      //   } catch (e) {
-      //     console.log("!!!!!!!!!", e);
-      //   }
-      // }, 3);
     }
   }
 }

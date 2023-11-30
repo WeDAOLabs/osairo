@@ -7,7 +7,7 @@
     "polyfills": {
       "asyncFunctions": true
     },
-    "name": "Osairo",
+    "name": "osairo",
     "outputName": "web-mobile",
     "buildPath": "project://build",
     "mainBundleCompressionType": "merge_dep",
@@ -21,9 +21,9 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2023-11-24 14:54:39 build success in 93215 ms!",
+        "message": "2023-11-30 18:21:09 build success in 60972 ms!",
         "options": {
-          "name": "client",
+          "name": "osairo",
           "server": "",
           "platform": "web-mobile",
           "buildPath": "project://build",
@@ -57,31 +57,8 @@
           "buildMode": "normal",
           "logDest": "project://temp/builder/log/web-mobile11-20-2023 20-22.log"
         },
-        "time": "11-24-2023 14:53:06",
+        "time": "11-30-2023 18:20:08",
         "dirty": false
-      },
-      "buildBundle": {
-        "id": "buildBundle",
-        "progress": 1,
-        "state": "success",
-        "message": "2023-11-28 17:17:05Build Bundle success in 29767 ms!",
-        "options": {
-          "dest": "project://build/build-bundle",
-          "buildTaskIds": [
-            "1700482963675"
-          ],
-          "taskName": "build bundle db://assets/resources",
-          "bundleConfigs": [
-            {
-              "root": "db://assets/resources",
-              "name": "resources",
-              "output": true
-            }
-          ],
-          "packages": {}
-        },
-        "time": "",
-        "type": "bundle"
       }
     }
   }
