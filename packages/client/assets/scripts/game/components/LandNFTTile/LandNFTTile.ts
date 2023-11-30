@@ -2,8 +2,9 @@ import { Sprite, Label, _decorator, Mask, UITransform, math, Node } from "cc";
 import { GameObject } from "../../../core/game/GameObject";
 import { PrefabsAsync } from "../../enum/Prefabs";
 import { ViewUtil } from "../../../core/utils/ViewUtil";
-import { Toast } from "../Toast/Toast";
-import { LandTileStatus } from "../../const/Enums";
+import { LandTileStatus, LandTileType } from "../../const/Enums";
+import ImageUtil from "../../../core/utils/ImageUtil";
+import { Textures } from "../../enum/Textures";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
@@ -42,9 +43,14 @@ export class LandNFTTile extends GameObject {
   @property(Label)
   private tipLabel: Label = null!;
 
+  @property(Sprite)
+  private tileSp: Sprite = null!;
+
   private _coordinate: math.Vec3 = math.v3(0, 0);
 
   private _status: LandTileStatus = LandTileStatus.Empty;
+
+  private _tileType: LandTileType = LandTileType.Oasis;
 
   public set coordinate(coordinate: math.Vec3) {
     this._coordinate = coordinate;
@@ -56,6 +62,8 @@ export class LandNFTTile extends GameObject {
 
   public set status(status: LandTileStatus) {
     this._status = status;
+    this.tileSp.node.active = !this.isEmpty;
+
     this.tipLabel.string = this.isEmpty
       ? `(${this.coordinate.x},${this.coordinate.y})`
       : "";
@@ -63,6 +71,15 @@ export class LandNFTTile extends GameObject {
 
   public get status(): LandTileStatus {
     return this.status;
+  }
+
+  public set tileType(type: LandTileType) {
+    this._tileType = type;
+    this.setTileTexture();
+  }
+
+  public get tileType(): LandTileType {
+    return this._tileType;
   }
 
   public get isEmpty() {
@@ -92,9 +109,25 @@ export class LandNFTTile extends GameObject {
     const maskBg: Node = this.borderMask.node.getChildByName("bg")!;
     const transformMaskBg: UITransform = maskBg.getComponent(UITransform)!;
     transformMaskBg.contentSize = size;
+
+    const texSpTransform: UITransform =
+      this.tileSp.node.getComponent(UITransform)!;
+    texSpTransform.contentSize = size;
+  }
+
+  private setTileTexture() {
+    ImageUtil.setTexture(
+      this.tileSp,
+      Textures.UI_TILE,
+      `tile_${this._tileType}`
+    );
   }
 
   private onClick() {
-    Toast.showTip("coming soon!");
+    if (!this.isEmpty) {
+      return;
+    }
+    this.tileType = Math.floor(Math.random() * 3);
+    this.status = LandTileStatus.Landing;
   }
 }
