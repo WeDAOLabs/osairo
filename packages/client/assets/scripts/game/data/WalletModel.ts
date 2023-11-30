@@ -38,6 +38,6 @@ export class WalletModel extends DataModelBase {
 
   public async buildAccount() {}
 }
-export const WalletModelData: Readonly<WalletModel> = WalletModel.getInstance();
+export const walletModel: Readonly<WalletModel> = WalletModel.getInstance();
 
-registerDataModel(WalletModelData);
+registerDataModel(walletModel);

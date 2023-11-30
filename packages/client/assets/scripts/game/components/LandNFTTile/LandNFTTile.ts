@@ -5,6 +5,8 @@ import { ViewUtil } from "../../../core/utils/ViewUtil";
 import { LandTileStatus, LandTileType } from "../../const/Enums";
 import ImageUtil from "../../../core/utils/ImageUtil";
 import { Textures } from "../../enum/Textures";
+import { landsModel } from "../../data/LandsModel";
+import { Toast } from "../Toast/Toast";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
@@ -86,6 +88,13 @@ export class LandNFTTile extends GameObject {
     return this._status === LandTileStatus.Empty;
   }
 
+  public get isLanding() {
+    return (
+      this._status === LandTileStatus.Landing ||
+      this._status === LandTileStatus.Mining
+    );
+  }
+
   load() {
     this.buildTile();
   }
@@ -127,7 +136,15 @@ export class LandNFTTile extends GameObject {
     if (!this.isEmpty) {
       return;
     }
-    this.tileType = Math.floor(Math.random() * 3);
+
+    const landNft = landsModel.landing();
+    if (!landNft) {
+      return;
+    }
+
+    this.tileType = landNft;
     this.status = LandTileStatus.Landing;
+
+    Toast.showTip("Land Complete!");
   }
 }
