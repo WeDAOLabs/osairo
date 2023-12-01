@@ -1,4 +1,4 @@
-import { Sprite, Label, _decorator, Mask, UITransform, math, Node } from "cc";
+import { Sprite, Label, _decorator, Mask, UITransform, math, Node,Prefab,instantiate } from "cc";
 import { GameObject } from "../../../core/game/GameObject";
 import { PrefabsAsync } from "../../enum/Prefabs";
 import { ViewUtil } from "../../../core/utils/ViewUtil";
@@ -47,6 +47,9 @@ export class LandNFTTile extends GameObject {
 
   @property(Sprite)
   private tileSp: Sprite = null!;
+
+  @property(Prefab)
+  private prefab: Prefab = null!;
 
   private _coordinate: math.Vec3 = math.v3(0, 0);
 
@@ -132,20 +135,26 @@ export class LandNFTTile extends GameObject {
     );
   }
 
+  // TODO
   private onClick() {
-    if (!this.isEmpty) {
-      return;
-    }
-
-    const landNft = landsModel.landing();
-    if (landNft === null) {
-      Toast.showTip("There is none Land NFT");
-      return;
-    }
-
-    this.tileType = landNft;
-    this.status = LandTileStatus.Landing;
-
-    Toast.showTip("Land Complete!");
+    const landMenuPrefab = instantiate(this.prefab!); // 实例化预制体
+    landMenuPrefab.parent = this.node; // 设置父节点为当前节点
+    landMenuPrefab.setPosition(0, 0);
+    console.log("click 🐧");
   }
+  //   if (!this.isEmpty) {
+  //     return;
+  //   }
+  //
+  //   const landNft = landsModel.landing();
+  //   if (landNft === null) {
+  //     Toast.showTip("There is none Land NFT");
+  //     return;
+  //   }
+  //
+  //   this.tileType = landNft;
+  //   this.status = LandTileStatus.Landing;
+  //
+  //   Toast.showTip("Land Complete!");
+  // }
 }
