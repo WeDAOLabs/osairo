@@ -29,26 +29,11 @@ export class LandNFTMinter extends LayoutCom {
   }
 
   private async onMintLand() {
-    const landTile = Math.floor(Math.random() * 3);
+    const landTile = Math.floor(Math.random() * 9);
 
     eventBus.emit(GameEventLandNFTMinted.event, landTile);
 
-    let tileName = "";
-    switch (landTile) {
-      case 0:
-        tileName = "Oasis";
-        break;
-      case 1:
-        tileName = "Waterfall";
-        break;
-      case 2:
-        tileName = "Desert";
-        break;
-      default:
-        break;
-    }
-
-    Toast.showTip(`Osairo ${tileName} has been minted!`);
+    Toast.showTip(`Osairo LandNFT: type ${landTile} has been minted!`);
   }
 }
 
