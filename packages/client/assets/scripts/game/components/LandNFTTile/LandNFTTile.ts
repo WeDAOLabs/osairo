@@ -10,7 +10,7 @@ import { Toast } from "../Toast/Toast";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
-  size: math.size(100, 80),
+  size: math.size(100, 100),
 };
 
 /*
@@ -52,7 +52,7 @@ export class LandNFTTile extends GameObject {
 
   private _status: LandTileStatus = LandTileStatus.Empty;
 
-  private _tileType: LandTileType = LandTileType.Oasis;
+  private _tileType: LandTileType = LandTileType.Forest;
 
   public set coordinate(coordinate: math.Vec3) {
     this._coordinate = coordinate;
@@ -128,7 +128,7 @@ export class LandNFTTile extends GameObject {
     ImageUtil.setTexture(
       this.tileSp,
       Textures.UI_TILE,
-      `tile_${this._tileType}`
+      `osairo_land_tile_${this._tileType}`
     );
   }
 
