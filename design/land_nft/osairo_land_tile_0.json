@@ -1,7 +1,7 @@
 {
   "name": "OsairoLandTile",
   "description": "Osairo is a fully on-chain game.",
-  "image": "https://testnet.osairo.xyz/osairo_tile_0.png",
+  "image": "https://testnet.osairo.xyz/land_nft/osairo_land_tile_0.png",
   "attributes": [
     {
       "trait_type": "Type",
