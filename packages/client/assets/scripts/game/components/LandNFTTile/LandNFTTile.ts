@@ -10,7 +10,7 @@ import { Toast } from "../Toast/Toast";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
-  size: math.size(100, 100),
+  size: math.size(100, 80),
 };
 
 /*

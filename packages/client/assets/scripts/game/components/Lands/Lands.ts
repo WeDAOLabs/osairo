@@ -6,7 +6,7 @@ import { LandTileStatus } from "../../const/Enums";
 const { menu, ccclass } = _decorator;
 
 const LandMapConfig = {
-  size: math.size(1100, 1000),
+  size: math.size(1100, 860),
 };
 
 interface TileLayout {
