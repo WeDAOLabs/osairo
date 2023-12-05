@@ -6,9 +6,8 @@ import {LandTileStatus, LandTileType} from "../../const/Enums";
 import ImageUtil from "../../../core/utils/ImageUtil";
 import {Textures} from "../../enum/Textures";
 
-import {landsModel} from "../../data/LandsModel";
-import {Toast} from "../Toast/Toast";
 import {LandMenu} from "db://assets/scripts/game/components/LandMenu/LandMenu";
+import {landsModel} from "db://assets/scripts/game/data/LandsModel";
 
 const {menu, ccclass, integer, property} = _decorator;
 
@@ -136,12 +135,19 @@ export class LandNFTTile extends GameObject {
         );
     }
 
+    // TODO
     private onClick() {
-        this.node.parent?.getChildByName("land-menu")?.destroy();
-        const landMenuNode = instantiate(this.landMenuPrefab); // 实例化预制体
-        const landMenu = landMenuNode.getComponent(LandMenu);
-        landMenu?.setLandNFTTile(this);
-        landMenuNode.parent = this.node.parent;
-        landMenuNode.setPosition(this.node.position.x, this.node.position.y + 100);
+        if (this.status == LandTileStatus.Empty) {
+            this.node.parent?.getChildByName("land-menu")?.destroy();
+            const landMenuNode = instantiate(this.landMenuPrefab); // 实例化预制体
+            const landMenu = landMenuNode.getComponent(LandMenu);
+            landMenu?.setLandNFTTile(this);
+            landMenuNode.parent = this.node.parent;
+            landMenuNode.setPosition(this.node.position.x, this.node.position.y + 100);
+        } else {
+            console.log("移除NFT")
+            this.status = LandTileStatus.Empty;
+            this.tileType = LandTileType.Oasis;
+        }
     }
 }

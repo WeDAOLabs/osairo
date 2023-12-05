@@ -25,6 +25,10 @@ export class LandsModel extends DataModelBase {
     const tile = this._lands.pop()!;
     return tile;
   }
+
+  public getLands(): LandTileType[] | null {
+    return this._lands
+  }
 }
 export const landsModel: Readonly<LandsModel> = LandsModel.getInstance();
 
