@@ -863,7 +863,7 @@
     "tileSp": {
       "__id__": 27
     },
-    "prefab": {
+    "landMenuPrefab": {
       "__uuid__": "8012dba8-bd38-4d4b-a23e-05f8ff4ab3a2",
       "__expectedType__": "cc.Prefab"
     },
