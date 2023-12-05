@@ -5,7 +5,13 @@ export enum LandTileStatus {
 }
 
 export enum LandTileType {
+  Forest,
+  Lava,
+  Canyon,
+  Ruins,
+  Meadows,
+  Hills,
+  FrozenLand,
   Oasis,
-  Waterfall,
   Desert,
 }
