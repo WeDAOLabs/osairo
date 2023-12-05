@@ -16,6 +16,11 @@ export const TileConfig = {
     size: math.size(100, 80),
 };
 
+/*
+ * @author: enixlee
+ * @description:
+ * @date: 2023/11/29 10:34:44
+ */
 @ccclass("LandNFTTile")
 @menu("game/components/LandNFTTile")
 export class LandNFTTile extends GameObject {
@@ -127,12 +132,12 @@ export class LandNFTTile extends GameObject {
         ImageUtil.setTexture(
             this.tileSp,
             Textures.UI_TILE,
-            `tile_${this._tileType}`
+            `osairo_land_tile_${this._tileType}`
         );
     }
 
     private onClick() {
-        // this.node.parent?.destroy();
+        this.node.parent?.getChildByName("land-menu")?.destroy();
         const landMenuNode = instantiate(this.landMenuPrefab); // 实例化预制体
         const landMenu = landMenuNode.getComponent(LandMenu);
         landMenu?.setLandNFTTile(this);
