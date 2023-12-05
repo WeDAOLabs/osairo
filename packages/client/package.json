@@ -14,7 +14,7 @@
     "dev": "vite build --mode development && cp -r ./plugins/mud ./assets/scripts/ && cp -r ./plugins/mud-dev ./assets/scripts/ && cp -r ./plugins/particle ./assets/scripts/ && cp -r ./plugins/ethers ./assets/scripts/",
     "compile:particle": "vite build --mode development",
     "compile:ethers": "vite build --mode development",
-    "deploy:testnet": "rm -rf ./assets/scripts/mud && rm -rf ./assets/scripts/mud.meta && rm -rf ./assets/scripts/mud-dev && rm -rf ./assets/scripts/mud-dev.meta && rm -rf ./assets/scripts/ethers && rm -rf ./assets/scripts/ethers.meta && rm -rf ./assets/scripts/particle && rm -rf ./assets/scripts/particle.meta && vite build --mode testnet && cp -r ./plugins/mud ./build/web-mobile/ && cp -r ./plugins/mud-dev ./build/web-mobile/ && cp -r ./plugins/particle ./build/web-mobile/ && cp -r ./plugins/ethers ./build/web-mobile/",
+    "deploy:testnet": "rm -rf ./assets/scripts/mud && rm -rf ./assets/scripts/mud.meta && rm -rf ./assets/scripts/mud-dev && rm -rf ./assets/scripts/mud-dev.meta && rm -rf ./assets/scripts/ethers && rm -rf ./assets/scripts/ethers.meta && rm -rf ./assets/scripts/particle && rm -rf ./assets/scripts/particle.meta && vite build --mode testnet && cp -r ./plugins/mud ./build/web-mobile/ && cp -r ./plugins/mud-dev ./build/web-mobile/ && cp -r ./plugins/particle ./build/web-mobile/ && cp -r ./plugins/ethers ./build/web-mobile/ && cp -r ./plugins/land_nft ./build/web-mobile/",
     "preview": "vite preview",
     "test": "tsc --noEmit",
     "compile": "tsc"
