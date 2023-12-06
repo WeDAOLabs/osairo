@@ -7,6 +7,7 @@ import ImageUtil from "../../../core/utils/ImageUtil";
 import { Textures } from "../../enum/Textures";
 import { landsModel } from "../../data/LandsModel";
 import { Toast } from "../Toast/Toast";
+import { LandMenu } from "../LandMenu/LandMenu";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
@@ -136,6 +137,10 @@ export class LandNFTTile extends GameObject {
     if (!this.isEmpty) {
       return;
     }
+
+    // this code is for testing LandMenu
+    LandMenu.open();
+    // test over
 
     const landNft = landsModel.landing();
     if (landNft === null) {
