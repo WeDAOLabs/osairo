@@ -24,7 +24,15 @@ export class LandTileNFTMintSourceContract extends Singleton {
     return this._contract;
   }
 
-  private async mint(): Promise<void> {
+  protected async initialize() {
+    const contract = await this.getContract();
+
+    contract.on("LandTileMinted", async (minter: string, tokenId: number) => {
+      console.log("land minted success", minter, tokenId);
+    });
+  }
+
+  public async mint(): Promise<void> {
     const contract = await this.getContract();
     await contract.mint(
       13264668187771770619,
