@@ -4,10 +4,127 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>osairo_land_tile_0.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{410,2},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{308,2},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{206,2},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{104,2},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,410},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,308},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,206},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_7.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,104},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>osairo_land_tile_8.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{100,100}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,100}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
             <key>tile_0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,166},{100,80}}</string>
+                <string>{{308,104},{100,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +137,7 @@
             <key>tile_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,84},{100,80}}</string>
+                <string>{{206,104},{100,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +150,7 @@
             <key>tile_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{100,80}}</string>
+                <string>{{104,104},{100,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -51,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>tile_ui.png</string>
             <key>size</key>
-            <string>{128,256}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d2ed3acf6ecaa29467ec85959c2d0418:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:4c519ccf86a7c9d60d91ab559a75615e:1/1$</string>
             <key>textureFileName</key>
             <string>tile_ui.png</string>
         </dict>

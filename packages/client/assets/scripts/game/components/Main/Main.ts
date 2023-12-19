@@ -8,6 +8,7 @@ import { TitleBar } from "../TitleBar/TitleBar";
 import { LandNFTMinter } from "../LandNFTMinter/LandNFTMinter";
 import { Toast } from "../Toast/Toast";
 import { Lands } from "../Lands/Lands";
+import { nftMinterContract } from "../../contracts/LandTileNFTMintSource";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -44,7 +45,8 @@ export class Main extends LayoutCom {
 
   private async onExploreClicked() {
     try {
-      await mudEngine.systemCalls.increment();
+      // await mudEngine.systemCalls.increment();
+      await nftMinterContract.mint();
     } catch (e) {
       Toast.showTip(`[error: cancel transaction]`);
     }

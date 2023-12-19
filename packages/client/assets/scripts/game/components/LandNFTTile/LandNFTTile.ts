@@ -7,6 +7,7 @@ import ImageUtil from "../../../core/utils/ImageUtil";
 import { Textures } from "../../enum/Textures";
 import { landsModel } from "../../data/LandsModel";
 import { Toast } from "../Toast/Toast";
+import { LandMenu } from "../LandMenu/LandMenu";
 const { menu, ccclass, integer, property } = _decorator;
 
 export const TileConfig = {
@@ -52,7 +53,7 @@ export class LandNFTTile extends GameObject {
 
   private _status: LandTileStatus = LandTileStatus.Empty;
 
-  private _tileType: LandTileType = LandTileType.Oasis;
+  private _tileType: LandTileType = LandTileType.Forest;
 
   public set coordinate(coordinate: math.Vec3) {
     this._coordinate = coordinate;
@@ -128,7 +129,7 @@ export class LandNFTTile extends GameObject {
     ImageUtil.setTexture(
       this.tileSp,
       Textures.UI_TILE,
-      `tile_${this._tileType}`
+      `osairo_land_tile_${this._tileType}`
     );
   }
 
@@ -137,8 +138,13 @@ export class LandNFTTile extends GameObject {
       return;
     }
 
+    // this code is for testing LandMenu
+    LandMenu.open();
+    // test over
+
     const landNft = landsModel.landing();
-    if (!landNft) {
+    if (landNft === null) {
+      Toast.showTip("There is none Land NFT");
       return;
     }
 

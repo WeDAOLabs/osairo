@@ -1,7 +1,6 @@
 import { Label, _decorator } from "cc";
 import { GameObject } from "../../../core/game/GameObject";
 import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
-import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
 import { playerModel } from "../../data/PlayerModel";
 import { GameEventWalletConnected } from "../../events/GameEventWalletConnected";
 import { PlayerDTO } from "../../data/dto/PlayerDTO";
