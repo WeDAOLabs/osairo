@@ -48,6 +48,7 @@ export class Main extends LayoutCom {
       // await mudEngine.systemCalls.increment();
       await nftMinterContract.mint();
     } catch (e) {
+      console.log(e);
       Toast.showTip(`[error: cancel transaction]`);
     }
   }

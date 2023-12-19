@@ -1,29 +1,20 @@
 import { OnEvent } from "../../../core/event/decorators/OnEventDecorator";
-import { Singleton } from "../../../core/game/Singleton";
 import { GameEventLoginComplete } from "../../events/GameEventLoginComplete";
 import { mudEngine } from "./MudEngine";
-import { ethers, ethersIns } from "../ethers/Ethers";
+import { ethers } from "../ethers/Ethers";
+import { ContractBase } from "../../contracts/ContractBase";
 
-export class WorldContract extends Singleton {
-  private _contract: any = null;
-
+export class WorldContract extends ContractBase {
   private get baseContract() {
     return mudEngine.mud.network.worldContract;
   }
 
-  private get abi() {
-    return this.baseContract.abi;
+  protected get address(): string {
+    return this.baseContract.address;
   }
 
-  private async getContract(): Promise<any> {
-    if (!this._contract) {
-      const contract = new ethers.Contract(this.baseContract.address, this.abi);
-      const signer = await ethersIns.getSigner();
-      this._contract = contract.connect(signer);
-      this._contract.signer = signer;
-      this._contract.provider = ethersIns.provider;
-    }
-    return this._contract;
+  protected get abi() {
+    return this.baseContract.abi;
   }
 
   @OnEvent(GameEventLoginComplete.event)
