@@ -1,7 +1,7 @@
 import abi from "./LandTileNFTMintSource.json";
-import { ethers } from "../plugins/ethers/Ethers";
 import { maticContract } from "./TokenMaticContract";
 import { ContractBase } from "./ContractBase";
+import { ethers } from "../plugins/ethers/Ethers";
 
 export class LandTileNFTMintSourceContract extends ContractBase {
   protected get abi(): any {
@@ -18,10 +18,10 @@ export class LandTileNFTMintSourceContract extends ContractBase {
       console.log("land minted success", minter, tokenId);
     });
 
-    // const balance = await maticContract.balanceOf(
-    //   "0xF6b9e4d192d7a408C9F3d9d0C99adF86A7094471"
-    // );
-    // console.log("balance", balance);
+    const balance = await maticContract.balanceOf(
+      "0xF6b9e4d192d7a408C9F3d9d0C99adF86A7094471"
+    );
+    console.log("balance", balance);
 
     await contract.mint(
       ethers.parseUnits("13264668187771770619", 0),
