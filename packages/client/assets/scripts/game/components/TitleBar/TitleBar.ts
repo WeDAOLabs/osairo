@@ -9,6 +9,9 @@ import { ViewUtil } from "../../../core/utils/ViewUtil";
 import { utils } from "../../plugins/utils";
 import { Toast } from "../Toast/Toast";
 import { particleEngine } from "../../plugins/particle/ParticleEngine";
+import { GameEventBalanceChanged } from "../../events/GameEventBalanceChanged";
+import { maticContract } from "../../contracts/TokenMaticContract";
+import { eventBus } from "../../../core/event/EventBus";
 const { menu, ccclass, property } = _decorator;
 
 /*
@@ -34,17 +37,40 @@ export class TitleBar extends GameObject {
   @property(Label)
   private walletAddressLabel: Label = null!;
 
+  @property(Label)
+  private balanceLabel: Label = null!;
+
   private set address(address: string) {
     this.walletAddressLabel.string = address;
   }
 
+  private set balance(balance: string | number) {
+    this.balanceLabel.string = `${balance} matic`;
+  }
+
   load() {
     this.setPlayerAddress(playerModel.currentPlayer);
+
+    eventBus.emit(GameEventBalanceChanged.event);
   }
 
   @OnEvent(GameEventWalletConnected.event)
   private onWalletConnected(player: PlayerDTO) {
     this.setPlayerAddress(player);
+  }
+
+  @OnEvent(GameEventBalanceChanged.event)
+  private async onBalanceChanged() {
+    const address = playerModel.currentPlayer?.address;
+    if (!address) {
+      return;
+    }
+    try {
+      const balance = await maticContract.balanceOf(address);
+      this.balance = parseFloat(`${balance}`).toFixed(4);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   private setPlayerAddress(player: PlayerDTO) {

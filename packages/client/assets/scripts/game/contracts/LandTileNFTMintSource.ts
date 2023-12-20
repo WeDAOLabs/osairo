@@ -1,5 +1,4 @@
 import abi from "./LandTileNFTMintSource.json";
-import { maticContract } from "./TokenMaticContract";
 import { ContractBase } from "./ContractBase";
 import { ethers } from "../plugins/ethers/Ethers";
 
@@ -17,11 +16,6 @@ export class LandTileNFTMintSourceContract extends ContractBase {
     contract.on("LandTileMinted", async (minter: string, tokenId: number) => {
       console.log("land minted success", minter, tokenId);
     });
-
-    const balance = await maticContract.balanceOf(
-      "0xF6b9e4d192d7a408C9F3d9d0C99adF86A7094471"
-    );
-    console.log("balance", balance);
 
     await contract.mint(
       ethers.parseUnits("13264668187771770619", 0),
