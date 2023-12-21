@@ -8,5 +8,9 @@ pragma solidity >=0.8.21;
  * @dev This interface is automatically generated from the corresponding system contract. Do not edit manually.
  */
 interface ILandNFTSystem {
-  function mint() external returns (uint32); 
+  function mint() external returns (uint32);
+
+  function place(uint256 tokenId) external;
+
+  function remove(uint256 tokenId) external;
 }
